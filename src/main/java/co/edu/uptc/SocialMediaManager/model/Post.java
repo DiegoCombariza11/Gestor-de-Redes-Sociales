@@ -44,6 +44,14 @@ public class Post {
         return interactions;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "content='" + content + '\'' +
+                ", date=" + date +
+                '}';
+    }
+
     public void setInteractions(NTree<User> interactions) {
         this.interactions = interactions;
     }

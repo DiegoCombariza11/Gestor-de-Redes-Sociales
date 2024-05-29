@@ -15,14 +15,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.username = username;
+        this.socialMediaNTree=new NTree<>();
     }
 
     public NTree<SocialMedia> getSocialMediaNTree() {
         return socialMediaNTree;
     }
 
-    public void setSocialMediaNTree(SocialMedia socialMediaNTree) {
-        this.socialMediaNTree.add(socialMediaNTree,this.socialMediaNTree.getRoot());
+    public void setSocialMediaNTree(SocialMedia socialMediaNTree, Object user) {
+        this.socialMediaNTree.add(socialMediaNTree, user);
     }
 
     public String getName() {
@@ -55,6 +56,17 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", socialMediaNTree=" + socialMediaNTree+
+                '}';
     }
 
     @Override
