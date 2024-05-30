@@ -2,7 +2,6 @@ package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.SocialMedia;
-
 public class NTree<T> {
     private Node<T> root;
 
@@ -10,63 +9,46 @@ public class NTree<T> {
         this.root = null;
     }
 
-    public void add(Object value, Object parent) {
-        if (root == null) {
-            root = new Node(value);
-        } else {
-            Node node = findNode(root, parent);
-            if (node != null) {
-                node.setChildren(new Node(value));
-            }
-        }
+    public NTree(T rootData) {
+        this.root = new Node<>(rootData);
     }
 
-    public T getValue(Object value) {
-        Node node = findNode(root, value);
-        if (node != null) {
-            return (T) node.getValue();
-        }
-        return null;
-    }
-
-    public Node getRoot() {
+    public Node<T> getRoot() {
         return root;
     }
 
-    public Node findNode(Node node, Object value) {
-        if (node.getValue().equals(value)) {
-            return node;
-        } else {
-            for (Object child : node.getChildren()) {
-                Node result = findNode((Node)child, value);
-                if (result != null) {
-                    return result;
-                }
+    public void add(T data, Node<T> parent) {
+        Node<T> newNode = new Node<>(data);
+        if (parent == null) {
+            if (root == null) {
+                root = newNode;
+            } else {
+                throw new IllegalArgumentException("Root already exists");
             }
+        } else {
+            parent.addChild(newNode);
         }
-        return null;
     }
-
-    public String printNode(Node node, int level) {
-        if (node == null) {
-            return "";
+    public String printNode(Node<T> node, String prefix, boolean isTail) {
+        if(node==null){
+            return "esta vacio";
         }
-        String aux = "";
-        for (int i = 0; i < level; i++) {
-            aux += "  ";
+        StringBuilder builder = new StringBuilder();
+        builder.append(prefix).append(isTail ? "└── " : "├── ").append(node.getData().toString()).append("\n");
+        for (int i = 0; i < node.getChildren().size() - 1; i++) {
+            builder.append(printNode(node.getChildren().get(i), prefix + (isTail ? "    " : "│   "), false));
         }
-        aux += node.getValue() + "\n";
-        for (Object child : node.getChildren()) {
-            aux += printNode((Node) child, level + 1);
+        if (node.getChildren().size() > 0) {
+            builder.append(printNode(node.getChildren().get(node.getChildren().size() - 1), prefix + (isTail ? "    " : "│   "), true));
         }
-        return aux;
+        return builder.toString();
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        // Assuming 'root' is the root node of your NTree
-        sb.append(printNode(root, 0));
-        return sb.toString();
+    public void addRoot(T data) {
+        if (root == null) {
+            root = new Node<>(data);
+        } else {
+            throw new IllegalArgumentException("Root already exists");
+        }
     }
 }
+

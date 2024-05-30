@@ -14,6 +14,7 @@ public class Post {
         this.content = content;
         this.date = date;
         this.user = user;
+        this.interactions=new NTree<>();
     }
 
     public String getContent() {

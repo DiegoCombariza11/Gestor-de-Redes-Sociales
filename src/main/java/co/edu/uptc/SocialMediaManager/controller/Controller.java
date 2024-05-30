@@ -15,27 +15,25 @@ public class Controller {
     }
 
     public void createPost(String content, String media, LocalDate date) {
-        Node foundNode = findSocialMedia(this.userLogged.getSocialMediaNTree().getRoot(), media);
-        if (foundNode != null && foundNode.getValue() instanceof SocialMedia) {
-            SocialMedia socialMedia = (SocialMedia) foundNode.getValue();
-            socialMedia.setPosts(new Post(content, date, this.userLogged));
+        Node<SocialMedia> foundNode = findSocialMedia(this.userLogged.getSocialMediaNTree().getRoot(), media);
+        if (foundNode != null) {
+            SocialMedia socialMedia = foundNode.getData();
+            socialMedia.addPost(new Post(content, date, this.userLogged));
         } else {
-            // Handle the case when the node is not found, e.g., log an error or throw an exception
+            System.err.println("Social media not found: " + media);
         }
     }
 
-    public Node findSocialMedia(Node node, String value) {
+    public Node<SocialMedia> findSocialMedia(Node<SocialMedia> node, String value) {
         if (node == null) {
             return null;
         }
-        if (node.getValue() instanceof SocialMedia) {
-            SocialMedia s = (SocialMedia) node.getValue();
-            if (s.getName().equals(value)) {
-                return node;
-            }
+        SocialMedia s = node.getData();
+        if (s.getName().equals(value)) {
+            return node;
         }
-        for (Object child : node.getChildren()) {
-            Node result = findSocialMedia((Node) child, value);
+        for (Node<SocialMedia> child : node.getChildren()) {
+            Node<SocialMedia> result = findSocialMedia(child, value);
             if (result != null) {
                 return result;
             }
@@ -52,6 +50,6 @@ public class Controller {
     }
 
     public void setSocialMedia(SocialMedia s) {
-        this.userLogged.setSocialMediaNTree(s, this.userLogged);
+        this.userLogged.addSocialMedia(s);
     }
 }

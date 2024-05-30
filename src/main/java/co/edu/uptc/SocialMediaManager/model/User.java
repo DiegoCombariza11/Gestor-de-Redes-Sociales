@@ -10,20 +10,21 @@ public class User {
     private String password;
     private String username;
     private NTree<SocialMedia> socialMediaNTree;
+
     public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.username = username;
-        this.socialMediaNTree=new NTree<>();
+        this.socialMediaNTree = new NTree<>();
     }
 
     public NTree<SocialMedia> getSocialMediaNTree() {
         return socialMediaNTree;
     }
 
-    public void setSocialMediaNTree(SocialMedia socialMediaNTree, Object user) {
-        this.socialMediaNTree.add(socialMediaNTree, user);
+    public void addSocialMedia(SocialMedia socialMedia) {
+        this.socialMediaNTree.add(socialMedia, this.socialMediaNTree.getRoot());
     }
 
     public String getName() {
@@ -65,7 +66,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", socialMediaNTree=" + socialMediaNTree+
+                ", socialMediaNTree=" + socialMediaNTree.printNode(this.socialMediaNTree.getRoot(), "",true) +
                 '}';
     }
 

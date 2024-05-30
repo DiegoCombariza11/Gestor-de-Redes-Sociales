@@ -1,29 +1,26 @@
 package co.edu.uptc.SocialMediaManager.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Node<T> {
-    private T value;
-    private ArrayList<Node> children;
+    private T data;
+    private List<Node<T>> children;
 
-    public Node(T value) {
-        this.value = value;
+    public Node(T data) {
+        this.data = data;
         this.children = new ArrayList<>();
     }
 
-    public T getValue() {
-        return value;
+    public T getData() {
+        return data;
     }
 
-    public void setValue(T value) {
-        this.value = value;
-    }
-
-    public ArrayList<Node> getChildren() {
+    public List<Node<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(Node children) {
-        this.children.add(children);
+    public void addChild(Node<T> child) {
+        this.children.add(child);
     }
 }

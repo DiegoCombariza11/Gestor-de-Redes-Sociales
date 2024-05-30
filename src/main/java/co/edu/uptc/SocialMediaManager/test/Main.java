@@ -8,11 +8,17 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Controller c=new Controller();
-        c.setUserLogged(new User("Juan", "asdasd@", "123", "juan"));
-        c.setSocialMedia(new SocialMedia("Facebook"));
-        c.createPost("Hola", "Facebook", LocalDate.ofEpochDay(2021-01-01));
-        c.createPost("Adios", "Facebook", LocalDate.ofEpochDay(2021-12-01));
+        Controller c = new Controller();
+        User juan = new User("Juan", "asdasd@", "123", "juan");
+        c.setUserLogged(juan);
+        SocialMedia facebook = new SocialMedia("Facebook");
+        c.setSocialMedia(facebook);
+        c.createPost("Hola", "Facebook", LocalDate.of(2021, 1, 1));
+        c.createPost("Adios", "Facebook", LocalDate.of(2021, 12, 1));
+        SocialMedia x = new SocialMedia("X");
+        c.setSocialMedia(x);
+        c.createPost("Hola", "X", LocalDate.of(2021, 1, 1));
+        c.createPost("Adios", "X", LocalDate.of(2021, 12, 1));
         System.out.println(c.getUserLogged().toString());
     }
 }
