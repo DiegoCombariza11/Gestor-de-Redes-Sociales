@@ -40,9 +40,9 @@ document.getElementById('continue').addEventListener('click', function() {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            'username': username,
-            'password': password,
-            'socialNetwork': socialNetwork
+            'username': document.getElementById('username').value,
+            'password': document.getElementById('password').value,
+            //'socialNetwork': socialNetwork
         })
     })
         .then(response => {
