@@ -29,8 +29,7 @@ public class HomeController {
      */
     @PostMapping("/test")
 public Map<String, List<Map<String, String>>> testPost(@RequestBody Map<String, List<Map<String, String>>> payload) {
-    // Aquí puedes procesar el payload si es necesario
-    return payload; // Esto devolverá el payload como un objeto JSON
+    return payload;
 }
 
     @GetMapping("/login")
