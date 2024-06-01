@@ -8,6 +8,15 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.social-logo-img:hover {
+    opacity: 0.5;
+}
+#error-message{
+    color: red;
+    font-size: 12px;
+}
+
 .navbar{
     background-color: #81bfff;
     height: fit-content;

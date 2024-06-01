@@ -1,5 +1,7 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
+import co.edu.uptc.SocialMediaManager.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +17,23 @@ import java.util.Map;
 @RequestMapping("/")
 public class HomeController {
 
+    @Autowired
+    private AuthService authService;
+
+
 
     @GetMapping("/")
-    public String home() {
-        return "redirect:/pages/Login.html";
+    public ResponseEntity<Void> home(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/pages/Login.html"));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
     /*
     @GetMapping("/test")
-    public String test() {
-        return "redirect:/pages/Home.html";
+    public RespondeEntity<Void> test() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(URI.create("/pages/Home.html"));
+       return new RespondeEntity<>(headers, HttpStatus.FOUND);
     }
 
      */
@@ -38,15 +48,25 @@ public Map<String, List<Map<String, String>>> testPost(@RequestBody Map<String, 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> loginPost(@RequestParam String username, @RequestParam String password) {
-        // Toca validar el usaurio
+    public ResponseEntity<Void> loginPost(@RequestParam String username, @RequestParam String password, @RequestParam String socialNetWork) {
+
+        boolean isValid = authService.validateUser(username, password, socialNetWork);
 
         System.out.println("Username: " + username);
         System.out.println("Password: " + password);
+        System.out.println("Red social: "+ socialNetWork);
+        if(isValid){
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create("/pages/Home.html"));
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        }else{
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/pages/Home.html"));
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+
+
+
+
     }
 
 /*

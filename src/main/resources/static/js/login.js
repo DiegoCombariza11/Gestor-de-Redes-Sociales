@@ -1,25 +1,25 @@
 document.write("JavaScript Funcionando")
-var socials = ['Facebook', 'X', 'instagram'];
-var index = 0;
+const socials = ['Facebook', 'X', 'instagram'];
+let index = 0;
 
 document.getElementById('prev').addEventListener('click', function() {
     event.preventDefault();
     index = (index - 1 + socials.length) % socials.length;
-    console.log('Prev button clicked, new index is: ' + index);
+    console.log('Botón atrás presionado, indice en: ' + index);
     updateSocial();
 });
 
 document.getElementById('next').addEventListener('click', function() {
     event.preventDefault();
     index = (index + 1) % socials.length;
-    console.log('Next button clicked, new index is: ' + index);
+    console.log('Botón next presionado indice en: ' + index);
     updateSocial();
 });
 
 function updateSocial() {
-    var logoImage = document.querySelector('#social-logo-container .social-logo-img');
+    const logoImage = document.querySelector('#social-logo-container .social-logo-img');
     logoImage.style.opacity = 0;
-    setTimeout(function() {
+    setTimeout(function(){
         logoImage.src = '/images/' + socials[index] + '.svg';
         logoImage.alt = socials[index];
         document.getElementById('socialNetwork').value = socials[index];
@@ -30,29 +30,56 @@ function updateSocial() {
 
 document.getElementById('continue').addEventListener('click', function() {
     event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const socialNetwork = socials[index];
+    const errorMessage = document.getElementById('error-message');
+
+    /*
     console.log(document.getElementById('username').value);
     console.log(document.getElementById('password').value)
     console.log(socials[index]);
     console.log("Funciona el berraco botón");
+
+     */
+
+    if (!username || !password || !socialNetwork) {
+        alert('Todos los campos son obligatorios.');
+        return;
+    }
+    console.log(username);
+    console.log(password);
+    console.log(socialNetwork);
+
     fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            'username': document.getElementById('username').value,
-            'password': document.getElementById('password').value,
-            //'socialNetwork': socialNetwork
+            'username': username,
+            'password': password,
+            'socialNetwork': socialNetwork
         })
     })
         .then(response => {
             if (response.redirected) {
                 window.location.href = response.url;
+            } else if (response.status === 401) {
+                errorMessage.textContent = 'Usuario o contraseña incorrectos';
+                errorMessage.style.display = 'block';
+            } else {
+                console.log('Error en la respuesta del servidor  ', response.statusText);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            errorMessage.textContent = 'Uh oh, ocurrió un error, llamen al ingeniero';
+            errorMessage.style.display = 'block';
+            console.error('Error:', error);
+        });
 });
-   // window.location.replace('/pages/Home.html');
+
+    // window.location.replace('/pages/Home.html');
 
 
 
