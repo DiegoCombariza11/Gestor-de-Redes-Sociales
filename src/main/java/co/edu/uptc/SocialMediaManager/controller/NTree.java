@@ -2,7 +2,13 @@ package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.SocialMedia;
-public class NTree<T> {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class NTree<T> implements Serializable {
+    @SerializedName("root")
     private Node<T> root;
 
     public NTree() {
