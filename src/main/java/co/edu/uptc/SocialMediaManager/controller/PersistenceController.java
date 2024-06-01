@@ -1,6 +1,7 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.SocialMedia;
+import co.edu.uptc.SocialMediaManager.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -73,13 +74,13 @@ public class PersistenceController {
         }
     }
 
-    public List<SocialMedia> readFile(String name) {
+    public List<User> readFile(String name) {
         file = new File(name);
-        List<SocialMedia> people = null;
+        List<User> people = null;
         gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             bf = new BufferedReader(new FileReader(direction + file + extension));
-            Type personListType = new TypeToken<List<SocialMedia>>() {
+            Type personListType = new TypeToken<List<User>>() {
             }.getType();
             people = gson.fromJson(bf, personListType);
             bf.close();
