@@ -2,7 +2,7 @@ package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.SocialMedia;
 import co.edu.uptc.SocialMediaManager.model.User;
-import co.edu.uptc.SocialMediaManager.model.UserAdapter;
+import co.edu.uptc.SocialMediaManager.model.MediaAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +22,7 @@ public class PersistenceController {
     public boolean createFile(String name) {
         file = new File(name);
         try {
-            wr = new PrintWriter(new FileWriter(direction + file + extension, true));
+            wr = new PrintWriter(new FileWriter(direction + file + extension));
             wr.close();
             return true;
         } catch (IOException e) {
@@ -33,65 +33,33 @@ public class PersistenceController {
     public boolean writeFile(String name, Object obj) {
         file = new File(name);
         gson = new GsonBuilder()
-                .registerTypeAdapter(User.class, new UserAdapter()).setPrettyPrinting()
+                .registerTypeAdapter(SocialMedia.class, new MediaAdapter()).setPrettyPrinting()
                 .create();
         String json = gson.toJson(obj);
         try {
-            wr = new PrintWriter(new FileWriter(direction + file + extension, true));
-            if (isNotEmptyFile(name)) {
-                deleteCorchete(file);
-                wr.write(",\n");
-            } else {
-                wr.write("[\n");
-            }
+            wr = new PrintWriter(new FileWriter(direction + file + extension));
             wr.write(json);
-            wr.write("\n]");
             wr.close();
             return true;
         } catch (IOException e) {
             return false;
         }
     }
-
-    public boolean deleteCorchete(File n) {
-        try {
-            RandomAccessFile raf = new RandomAccessFile(direction + n + extension, "rw");
-            Long size = raf.length();
-            raf.setLength(size - 1);
-            raf.close();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    public boolean isNotEmptyFile(String filename) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(direction + filename + extension))) {
-            if (reader.readLine() != null) {
-                reader.close();
-                return true;
-            } else {
-                reader.close();
-                return false;
-            }
-        }
-    }
-
-    public List<User> readFile(String name) {
+    public List<SocialMedia> readFile(String name) {
         file = new File(name);
-        List<User> people = null;
+        List<SocialMedia> reds = null;
         gson = new GsonBuilder()
-                .registerTypeAdapter(User.class, new UserAdapter()).setPrettyPrinting()
+                .registerTypeAdapter(MediaAdapter.class, new MediaAdapter()).setPrettyPrinting()
                 .create();
         try {
             bf = new BufferedReader(new FileReader(direction + file + extension));
-            Type personListType = new TypeToken<List<User>>() {
+            Type personListType = new TypeToken<List<SocialMedia>>() {
             }.getType();
-            people = gson.fromJson(bf, personListType);
+            reds = gson.fromJson(bf, personListType);
             bf.close();
         } catch (IOException e) {
-            return people;
+            return reds;
         }
-        return people;
+        return reds;
     }
 }

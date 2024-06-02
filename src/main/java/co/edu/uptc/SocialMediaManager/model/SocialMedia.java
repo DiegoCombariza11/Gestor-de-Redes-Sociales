@@ -7,15 +7,11 @@ import java.util.Objects;
 
 public class SocialMedia {
     private String name;
-    private NTree<Post> posts;
-    private NTree<User> interactions;
-    private NTree<User> friends;
+    private NTree<User> users;
 
     public SocialMedia(String name) {
         this.name = name;
-        this.posts = new NTree<>(new Post("Posts","",null));
-        this.interactions = new NTree<>();
-        this.friends = new NTree<>();
+        this.users=new NTree<>();
     }
 
     public String getName() {
@@ -26,41 +22,18 @@ public class SocialMedia {
         this.name = name;
     }
 
-    public NTree<Post> getPosts() {
-        return posts;
+    public NTree<User> getUsers() {
+        return users;
     }
-
-    public void addPost(Post post) {
-        if (posts.getRoot() == null) {
-            posts = new NTree<>(post);
-        } else {
-            posts.add(post, posts.getRoot());
-        }
-    }
-
-    public NTree<User> getInteractions() {
-        return interactions;
-    }
-
-    public void addInteraction(User user) {
-        this.interactions.add(user, this.interactions.getRoot());
-    }
-
-    public NTree<User> getFriends() {
-        return friends;
-    }
-
-    public void addFriend(User user) {
-        this.friends.add(user, this.friends.getRoot());
+    public void addUser(User user) {
+        this.users.add(user, this.users.getRoot());
     }
 
     @Override
     public String toString() {
         return "SocialMedia{" +
                 "name='" + name + '\'' +
-                ", posts=" + posts.printNode(this.posts.getRoot(),"",true) +
-                ", interactions=" + interactions.printNode(this.interactions.getRoot(),"",true) +
-                ", friends=" + friends.printNode(this.friends.getRoot(),"",true) +
+                ", users=" + users.printNode(this.users.getRoot(),"",true) +
                 '}';
     }
 

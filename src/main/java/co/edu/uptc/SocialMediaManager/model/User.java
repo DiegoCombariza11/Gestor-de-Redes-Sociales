@@ -1,8 +1,10 @@
 package co.edu.uptc.SocialMediaManager.model;
 
+import co.edu.uptc.SocialMediaManager.controller.BinaryTree;
 import co.edu.uptc.SocialMediaManager.controller.NTree;
 import com.google.gson.annotations.Expose;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class User {
@@ -10,22 +12,27 @@ public class User {
     private String email;
     private String password;
     private String username;
-    private NTree<SocialMedia> socialMediaNTree;
+    private BinaryTree<Post> posts;
 
     public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.username = username;
-        this.socialMediaNTree = new NTree<>(new SocialMedia("SocialMedias"));
+        this.posts = new BinaryTree<>(new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                return o1.getLikes()-o2.getLikes();
+            }
+        });
     }
 
-    public NTree<SocialMedia> getSocialMediaNTree() {
-        return socialMediaNTree;
+    public BinaryTree getPosts() {
+        return posts;
     }
 
-    public void addSocialMedia(SocialMedia socialMedia) {
-        this.socialMediaNTree.add(socialMedia, this.socialMediaNTree.getRoot());
+    public void addPost(Post post) {
+        this.posts.add(post);
     }
 
     public String getName() {
@@ -67,7 +74,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", socialMediaNTree=" + socialMediaNTree.printNode(this.socialMediaNTree.getRoot(), "",true) +
+                ", posts=" + (posts != null ? posts.printTree(posts.getRoot()) : "null") +
                 '}';
     }
 

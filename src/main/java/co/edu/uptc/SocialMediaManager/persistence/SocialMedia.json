@@ -1,0 +1,115 @@
+[
+  {
+    "name": "Twitter",
+    "users": {
+      "root": {
+        "data": {
+          "name": "Pedro",
+          "email": "asdasd@",
+          "password": "123",
+          "username": "pedro",
+          "posts": {
+            "root": {
+              "data": {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": {
+                  "root": {
+                    "data": {
+                      "name": "Juan",
+                      "email": "asdasd@",
+                      "password": "123",
+                      "username": "juan",
+                      "posts": {
+                        "root": {
+                          "data": {
+                            "content": "Hola",
+                            "date": "2021-01-01",
+                            "interactions": {},
+                            "likes": 0
+                          },
+                          "children": []
+                        }
+                      }
+                    },
+                    "children": []
+                  }
+                },
+                "likes": 1
+              },
+              "children": []
+            }
+          }
+        },
+        "children": []
+      }
+    }
+  },
+  {
+    "name": "Facebook",
+    "users": {
+      "root": {
+        "data": {
+          "name": "Juan",
+          "email": "asdasd@",
+          "password": "123",
+          "username": "juan",
+          "posts": {
+            "root": {
+              "data": {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": {},
+                "likes": 0
+              },
+              "children": []
+            }
+          }
+        },
+        "children": [
+          {
+            "data": {
+              "name": "Pedro",
+              "email": "asdasd@",
+              "password": "123",
+              "username": "pedro",
+              "posts": {
+                "root": {
+                  "data": {
+                    "content": "Hola",
+                    "date": "2021-01-01",
+                    "interactions": {
+                      "root": {
+                        "data": {
+                          "name": "Juan",
+                          "email": "asdasd@",
+                          "password": "123",
+                          "username": "juan",
+                          "posts": {
+                            "root": {
+                              "data": {
+                                "content": "Hola",
+                                "date": "2021-01-01",
+                                "interactions": {},
+                                "likes": 0
+                              },
+                              "children": []
+                            }
+                          }
+                        },
+                        "children": []
+                      }
+                    },
+                    "likes": 1
+                  },
+                  "children": []
+                }
+              }
+            },
+            "children": []
+          }
+        ]
+      }
+    }
+  }
+]
