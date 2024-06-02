@@ -44,7 +44,7 @@ document.getElementById('continue').addEventListener('click', function() {
      */
 
     if (!username || !password || !socialNetwork) {
-        alert('Todos los campos son obligatorios.');
+        errorMessage.textContent = 'Por favor llene todos los campos';
         return;
     }
 
