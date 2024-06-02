@@ -1,6 +1,7 @@
 package co.edu.uptc.SocialMediaManager.model;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
+import com.google.gson.annotations.Expose;
 
 import java.util.Objects;
 
@@ -16,7 +17,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.username = username;
-        this.socialMediaNTree = new NTree<>();
+        this.socialMediaNTree = new NTree<>(new SocialMedia("SocialMedias"));
     }
 
     public NTree<SocialMedia> getSocialMediaNTree() {

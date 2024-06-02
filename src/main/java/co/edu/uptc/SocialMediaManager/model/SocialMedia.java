@@ -1,6 +1,7 @@
 package co.edu.uptc.SocialMediaManager.model;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
+import com.google.gson.annotations.Expose;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ public class SocialMedia {
 
     public SocialMedia(String name) {
         this.name = name;
-        this.posts = new NTree<>();
+        this.posts = new NTree<>(new Post("Posts","",null));
         this.interactions = new NTree<>();
         this.friends = new NTree<>();
     }

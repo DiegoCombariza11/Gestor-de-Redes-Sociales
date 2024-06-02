@@ -1,16 +1,15 @@
 package co.edu.uptc.SocialMediaManager.model;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
-
-import java.time.LocalDate;
+import com.google.gson.annotations.Expose;
 
 public class Post {
     private String content;
-    private LocalDate date;
-    private User user;
+    private String date;
+    private transient User user;
     private NTree<User> interactions;
 
-    public Post(String content, LocalDate date, User user) {
+    public Post(String content, String date, User user) {
         this.content = content;
         this.date = date;
         this.user = user;
@@ -25,11 +24,11 @@ public class Post {
         this.content = content;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -55,5 +54,9 @@ public class Post {
 
     public void setInteractions(NTree<User> interactions) {
         this.interactions = interactions;
+    }
+
+    public void addInteraction(User user) {
+        this.interactions.add(user, this.interactions.getRoot());
     }
 }
