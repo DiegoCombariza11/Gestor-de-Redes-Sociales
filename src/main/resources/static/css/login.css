@@ -1,3 +1,14 @@
+.d-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    margin: 5px;
+    padding: 3px;
+}
+
 .social-logo-img {
     transition: 0.5s;
     opacity: 1;
@@ -8,14 +19,35 @@
     flex-direction: row;
     justify-content: center;
 }
+.navbar-text{
+   margin-right: 20px;
+    color: black;
+    font-size: 18px;
+
+}
+.navbar-brand{
+    margin: 10px;
+}
 
 .social-logo-img:hover {
+
     opacity: 0.5;
 }
+.social-logo-img{
+    margin: 10px;
+
+}
 #error-message{
+    text-align: center;
+    margin-bottom: 10px;
     color: red;
     font-size: 12px;
 }
+.img-fluid{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
 
 .navbar{
     background-color: #81bfff;
@@ -23,6 +55,7 @@
 
 }
 .container-nav{
+    padding: 20px;
     align-content: center;
 }
 .navbar-brand{
