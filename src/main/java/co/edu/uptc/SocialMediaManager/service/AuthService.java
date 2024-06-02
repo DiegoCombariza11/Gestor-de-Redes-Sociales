@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     public boolean validateUser(String username, String password, String socialNetWork) {
+        System.out.println("Datos recibidos en el servicio: ");
+        System.out.println("Username: " + username);
+        System.out.println("Contraseña: "+password);
+        System.out.println("Red social: "+socialNetWork);
 
-        boolean validUser = (existUser(username, password, socialNetWork));
-
-        return validUser;
+        return (existUser(username, password, socialNetWork));
     }
 
     public boolean existUser(String username, String password, String socialNetWork) {
