@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String username;
     private BinaryTree<Post> posts;
-
+    private BinaryTree<String> friends;
     public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
@@ -25,6 +25,20 @@ public class User {
                 return o1.getLikes()-o2.getLikes();
             }
         });
+        this.friends=new BinaryTree<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+    }
+
+    public BinaryTree<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(BinaryTree<String> friends) {
+        this.friends = friends;
     }
 
     public BinaryTree getPosts() {
@@ -33,6 +47,9 @@ public class User {
 
     public void addPost(Post post) {
         this.posts.add(post);
+    }
+    public void addFrined(String userName) {
+        this.friends.add(userName);
     }
 
     public String getName() {
@@ -75,6 +92,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
                 ", posts=" + (posts != null ? posts.printTree(posts.getRoot()) : "null") +
+                ", friends=" + (friends != null ? friends.printTree(friends.getRoot()) : "null") +
                 '}';
     }
 

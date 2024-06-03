@@ -24,6 +24,7 @@ public class Main {
         c.setUserLogged(juan);
         c.createPost("Hola", LocalDate.of(2021, 1, 1).toString());
         c.createPost("Adios", LocalDate.of(2021, 12, 1).toString());
+        c.addFriend(pedro);
         c.setSocialMediaLogged(facebook);
         c.getSocialMediaLogged().addUser(pedro);
 
@@ -40,7 +41,7 @@ public class Main {
 
         // Juan reacts to Pedro's post on Twitter
         c.reacted("Hola", juan);
-
+        c.addFriend(juan);
         // Save Twitter data
 
         // Print persisted social media data

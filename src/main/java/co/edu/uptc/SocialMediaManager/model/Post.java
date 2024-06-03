@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class Post  {
     private String content;
     private String date;
-    private NTree<User> interactions;
+    private NTree<String> interactions;
     private int likes;
     public Post(String content, String date) {
         this.content = content;
@@ -33,7 +33,7 @@ public class Post  {
         this.date = date;
     }
 
-    public NTree<User> getInteractions() {
+    public NTree<String> getInteractions() {
         return interactions;
     }
 
@@ -53,11 +53,11 @@ public class Post  {
         this.likes = likes;
     }
 
-    public void setInteractions(NTree<User> interactions) {
+    public void setInteractions(NTree<String> interactions) {
         this.interactions = interactions;
     }
 
     public void addInteraction(User user) {
-        this.interactions.add(user, this.interactions.getRoot());
+        this.interactions.add(user.getUsername(), this.interactions.getRoot());
     }
 }
