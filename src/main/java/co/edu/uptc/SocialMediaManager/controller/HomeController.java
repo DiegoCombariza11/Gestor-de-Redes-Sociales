@@ -26,7 +26,7 @@ public class HomeController {
     @GetMapping("/")
     public ResponseEntity<Void> home() {
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/pages/Login.html"));
+        headers.setLocation(URI.create("/pages/login.html"));
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
