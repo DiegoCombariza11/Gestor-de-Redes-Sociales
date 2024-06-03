@@ -21,35 +21,27 @@
     </nav>
 </div>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Publicación</h5>
-                        <button class="btn btn-primary">Estadísticas</button>
-                        <button class="btn btn-secondary">Publicaciones</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Conexión</h5>
-                        <button class="btn btn-primary">Estadísticas</button>
-                        <button class="btn btn-secondary">Publicaciones</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Interacción</h5>
-                        <button class="btn btn-primary">Estadísticas</button>
-                        <button class="btn btn-secondary">Publicaciones</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Post Preview</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Here is where you would iterate over each post and create a new row for each one -->
+        <tr>
+            <td><!-- Here would go a preview of the post --></td>
+            <td><!-- Here would go the creation date of the post --></td>
+            <td>
+                <a href="<!-- Here would go the link to the post details page -->" class="btn btn-primary">View</a>
+                <a href="<!-- Here would go the link to the post edit page -->" class="btn btn-secondary">Edit</a>
+                <a href="<!-- Here would go the link to delete the post -->" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
     </div>
 
     <script src="/js/home.js"></script>
