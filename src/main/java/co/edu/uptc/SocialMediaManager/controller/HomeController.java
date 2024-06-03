@@ -1,5 +1,6 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
+import co.edu.uptc.SocialMediaManager.model.Post;
 import co.edu.uptc.SocialMediaManager.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class HomeController {
 
     private final AuthService authService;
-
+    private final Controller controller=new Controller();
     public HomeController(AuthService authService) {
         this.authService = authService;
     }
@@ -68,6 +69,21 @@ public Map<String, List<Map<String, String>>> testPost(@RequestBody Map<String, 
         }
 
     }
+    @PostMapping("/post")
+    public ResponseEntity<String> createPost(Post post){
+        if (post==null){
+            return new ResponseEntity<>("Post no creado", HttpStatus.BAD_REQUEST);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/pages/Home.html"));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        //return new ResponseEntity<>("Post creado", HttpStatus.CREATED);
 
+    }
+    @GetMapping("/post")
+    public ResponseEntity<Post> getPost(){
+        Post post = new Post("Hola","2021-10-10");
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 
 }

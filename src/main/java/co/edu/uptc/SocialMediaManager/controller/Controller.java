@@ -30,6 +30,18 @@ public class Controller {
             }
         }
     }
+    public boolean createPost1(String content, String date) {
+        if (userLogged != null && socialMediaLogged != null) {
+            Post p = new Post(content, date);
+            Node<User> userNode = findUserRecursive(socialMediaLogged.getUsers().getRoot(), userLogged.getUsername(), userLogged.getPassword());
+            if (userNode != null) {
+                userNode.getData().addPost(p);
+                writeSocialMedia();
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setSocialMediaLogged(SocialMedia socialMediaLogged) {
         this.socialMediaLogged = socialMediaLogged;
