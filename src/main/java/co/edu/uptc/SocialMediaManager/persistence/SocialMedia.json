@@ -40,8 +40,33 @@
                     "date": "2021-01-01",
                     "interactions": {
                       "root": {
-                        "data": "juan",
-                        "children": []
+                        "data": {
+                          "date": "2021-01-10",
+                          "user": "Juan"
+                        },
+                        "children": [
+                          {
+                            "data": {
+                              "date": "2021-01-10",
+                              "user": "Carlos"
+                            },
+                            "children": []
+                          },
+                          {
+                            "data": {
+                              "date": "2021-01-11",
+                              "user": "Alberto"
+                            },
+                            "children": []
+                          },
+                          {
+                            "data": {
+                              "date": "2021-01-12",
+                              "user": "Camilo"
+                            },
+                            "children": []
+                          }
+                        ]
                       }
                     },
                     "likes": 1

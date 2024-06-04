@@ -40,7 +40,7 @@ public class Main {
         c.createPost("Hola", LocalDate.of(2021, 1, 1).toString());
 
         // Juan reacts to Pedro's post on Twitter
-        c.reacted("Hola", juan);
+        c.reacted("Hola", juan,LocalDate.of(2021, 1, 10).toString());
         c.addFriend(juan);
         // Save Twitter data
 

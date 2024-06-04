@@ -1,14 +1,12 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
-import co.edu.uptc.SocialMediaManager.model.Node;
-import co.edu.uptc.SocialMediaManager.model.Post;
-import co.edu.uptc.SocialMediaManager.model.SocialMedia;
-import co.edu.uptc.SocialMediaManager.model.User;
+import co.edu.uptc.SocialMediaManager.model.*;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+@Service
 public class Controller {
     private User userLogged;
     private SocialMedia socialMediaLogged;
@@ -77,15 +75,41 @@ public class Controller {
         return pc.readFile("SocialMedia");
     }
 
-    public void reacted(String post, User user) {
+    public void reacted(String post, User user, String date) {
         if (userLogged != null && userLogged.getPosts() != null) {
             Post aux = (Post) userLogged.getPosts().findValue(userLogged.getPosts().getRoot(), post);
             if (aux != null) {
                 aux.setLikes(aux.getLikes() + 1);
-                aux.addInteraction(user);
+                aux.addInteraction(user, date);
                 writeSocialMedia();
             }
         }
+    }
+    public List<Interaction> getInteractionsOfPost(String user, String socialMedia, String content){
+        List<SocialMedia> aux=pc.readFile("SocialMedia");
+        if(aux!=null){
+            for (SocialMedia sm:aux) {
+                if(sm.getName().equals(socialMedia)){
+                    for (Node<User> u:sm.getUsers().getRoot().getChildren()) {
+                        if(u.getData().getName().equals(user)){
+                            Post p=(Post) u.getData().getPosts().findValue(u.getData().getPosts().getRoot(),content);
+                            return getInteractionsOfPost(p.getInteractions().getRoot());
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public List<Interaction> getInteractionsOfPost(Node<Interaction> node){
+        List<Interaction> interactions=new ArrayList<>();
+        if(node!=null){
+            interactions.add(node.getData());
+            for (Node<Interaction> i:node.getChildren()) {
+                interactions.addAll(getInteractionsOfPost(i));
+            }
+        }
+        return interactions;
     }
     public void addFriend(User user) {
         if(userLogged!=null){
