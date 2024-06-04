@@ -35,15 +35,7 @@ public class PersistenceController {
             return false;
         }
     }
-    public Optional<JsonNode> readJsonFile(String filename) {
-        try {
-            File jsonFile = new File(direction + filename + extension);
-            ObjectMapper objectMapper = new ObjectMapper();
-            return Optional.of(objectMapper.readTree(jsonFile));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
+
 
     public boolean writeFile(String name, Object obj) {
         file = new File(name);
