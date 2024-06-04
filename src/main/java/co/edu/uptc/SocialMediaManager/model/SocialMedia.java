@@ -28,6 +28,12 @@ public class SocialMedia {
     public void addUser(User user) {
         this.users.add(user, this.users.getRoot());
     }
+    public void addPost(User user, Post post) {
+        Node<User> userNode = findUserNode(this.users.getRoot(), user);
+        if (userNode != null) {
+            userNode.getData().addPost(post);
+        }
+    }
     private Node<User> findUserNode(Node<User> currentNode, User user) {
         if (currentNode == null) return null;
         if (currentNode.getData().equals(user)) return currentNode;
