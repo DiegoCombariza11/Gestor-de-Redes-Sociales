@@ -70,16 +70,15 @@ public Map<String, List<Map<String, String>>> testPost(@RequestBody Map<String, 
 
     }
     @PostMapping("/post")
-    public ResponseEntity<String> createPost(Post post){
-        if (post==null){
-            return new ResponseEntity<>("Post no creado", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Void> createPost(@RequestBody Post post){
+        if (post == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create("/pages/Home.html"));
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
-        //return new ResponseEntity<>("Post creado", HttpStatus.CREATED);
-
     }
+
     @GetMapping("/post")
     public ResponseEntity<Post> getPost(){
         Post post = new Post("Hola","2021-10-10");

@@ -36,16 +36,21 @@ document.getElementById('post1').addEventListener('click', function (event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
-    }).then(response => response.json())
-        .then(data => {
-            console.log("Post successfully created:", data);
-            // Handle successful post creation (e.g., show a message, clear form, etc.)
-        })
-        .catch(error => {
-            console.error("Error creating post:", error);
-            // Handle error
-        });
+    }).then(response => {
+        if (response.status === 302 || response.status === 200) {
+            window.location.href = '/pages/Home.html';
+        } else {
+            return response.json();
+        }
+    }).then(data => {
+        if (data) {
+            console.log("Post creation response:", data);
+        }
+    }).catch(error => {
+        console.error("Error creating post:", error);
+    });
 });
+
 
 function load() {
     fetch('/post', {
@@ -65,4 +70,7 @@ function load() {
             // Handle error
         });
 }
-
+document.getElementById('back').addEventListener('click', function (event) {
+    event.preventDefault();
+    window.location.href = '/pages/Home.html';
+});
