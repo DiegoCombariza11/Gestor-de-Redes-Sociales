@@ -1,8 +1,5 @@
 package co.edu.uptc.SocialMediaManager.controller;
-
-import co.edu.uptc.SocialMediaManager.model.Node;
-import co.edu.uptc.SocialMediaManager.model.Post;
-
+import co.edu.uptc.SocialMediaManager.model.*;
 import java.util.Comparator;
 
 public class BinaryTree<T> {
@@ -31,6 +28,8 @@ public class BinaryTree<T> {
             node.setLeft(addRecursive(node.getLeft(), data));
         } else if (comparator.compare(data, node.getData()) > 0) {
             node.setRight(addRecursive(node.getRight(), data));
+        }else{
+            return node;
         }
         return node;
     }
@@ -38,14 +37,7 @@ public class BinaryTree<T> {
     public Node<T> getRoot() {
         return root;
     }
-
-    public String printTree(Node<T> node) {
-        if (node == null) {
-            return "";
-        }
-        return printTree(node.getLeft()) + node.getData() + "\n" + printTree(node.getRight());
-    }
-
+    
     public void delete(T data) {
         root = deleteRecursive(root, data);
     }
@@ -82,18 +74,31 @@ public class BinaryTree<T> {
         return root.getLeft() == null ? root.getData() : findSmallestValue(root.getLeft());
     }
 
-    public T findValue(Node<T> node, String content) {
-        if (node == null) {
+    public T find(T data) {
+        return findRecursive(root, data);
+    }
+
+    private T findRecursive(Node<T> current, T data) {
+        if (current == null) {
             return null;
         }
-        Post p = (Post) node.getData();
-        if (p.getContent().toLowerCase().contains(content.toLowerCase())) {
-            return node.getData();
+
+        if (comparator.compare(data, current.getData()) == 0) {
+            return current.getData();
         }
-        T leftSearchResult = findValue(node.getLeft(), content);
-        if (leftSearchResult != null) {
-            return leftSearchResult;
+
+        return comparator.compare(data, current.getData()) < 0
+                ? findRecursive(current.getLeft(), data)
+                : findRecursive(current.getRight(), data);
+    }
+
+    public String printTree (Node<T>node) {
+        if (node == null) {
+            return "";
         }
-        return findValue(node.getRight(), content);
+        return printTree(node.getLeft()) + " " + node.getData().toString() + " " + printTree(node.getRight());
+    }
+    public T findPost(T post) {
+        return find(post);
     }
 }

@@ -48,4 +48,11 @@ public class Node<T> {
     public void addChild(Node<T> child) {
         this.children.add(child);
     }
+
+    public void removeChild(Node<T> child) {
+        this.children.remove(child);
+    }
+
+
+    
 }

@@ -11,7 +11,7 @@ public class SocialMedia {
 
     public SocialMedia(String name) {
         this.name = name;
-        this.users=new NTree<>();
+        this.users = new NTree<>();
     }
 
     public String getName() {
@@ -28,7 +28,19 @@ public class SocialMedia {
     public void addUser(User user) {
         this.users.add(user, this.users.getRoot());
     }
+    
 
+    private Node<User> findParentNode(Node<User> currentNode, Node<User> targetNode) {
+        if (currentNode == null) return null;
+        if (currentNode.getChildren().contains(targetNode)) return currentNode;
+
+        for (Node<User> child : currentNode.getChildren()) {
+            Node<User> parentNode = findParentNode(child, targetNode);
+            if (parentNode != null) return parentNode;
+        }
+        return null;
+    }
+   
     @Override
     public String toString() {
         return "SocialMedia{" +
