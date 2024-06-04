@@ -34,6 +34,12 @@ public class SocialMedia {
             userNode.getData().addPost(post);
         }
     }
+    public void removePost(User user, Post post) {
+        Node<User> userNode = findUserNode(this.users.getRoot(), user);
+        if (userNode != null) {
+            userNode.getData().getPosts().delete(post);
+        }
+    }
     private Node<User> findUserNode(Node<User> currentNode, User user) {
         if (currentNode == null) return null;
         if (currentNode.getData().equals(user)) return currentNode;
