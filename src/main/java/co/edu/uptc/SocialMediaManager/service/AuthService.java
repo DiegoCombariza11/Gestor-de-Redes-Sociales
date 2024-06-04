@@ -28,8 +28,7 @@ public class AuthService {
         JsonNode rootNode = optionalRootNode.get();
         JsonNode socialNode = null;
 
-        // Itera sobre los objetos en el array hasta encontrar el que tiene el campo 'name' igual a 'socialNetwork'
-        for (JsonNode node : rootNode) {
+       for (JsonNode node : rootNode) {
             if (node.has("name") && node.get("name").asText().equals(socialNetwork)) {
                 socialNode = node;
                 break;
@@ -41,8 +40,7 @@ public class AuthService {
             return false;
         }
 
-        // Ahora que tienes el nodo correcto de la red social, puedes acceder a 'users' y 'root'
-        JsonNode userNode = socialNode.path("users").path("root");
+       JsonNode userNode = socialNode.path("users").path("root");
         if (userNode.isMissingNode()) {
             System.out.println("Usuario no encontrado");
             return false;
@@ -70,13 +68,6 @@ public class AuthService {
 
         return false;
     }
-
-
-
-
-
-
-
 
 
 //    public boolean validateUser(String username, String password, String socialNetWork) {
