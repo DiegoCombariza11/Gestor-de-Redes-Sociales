@@ -18,40 +18,40 @@ public class AuthService {
 
 
     public boolean validateUser(String username, String password, String socialNetwork) {
-    try {
-        Optional<JsonNode> optionalRootNode = persistenceController.readJsonFile("SocialMedia");
-        if (!optionalRootNode.isPresent()) {
-            System.out.println("Error al leer el archivo JSON");
-            return false;
-        }
-
-        JsonNode rootNode = optionalRootNode.get();
-        JsonNode socialNode = null;
-
-       for (JsonNode node : rootNode) {
-            if (node.has("name") && node.get("name").asText().equals(socialNetwork)) {
-                socialNode = node;
-                break;
+        try {
+            Optional<JsonNode> optionalRootNode = persistenceController.readJsonFile("SocialMedia");
+            if (!optionalRootNode.isPresent()) {
+                System.out.println("Error al leer el archivo JSON");
+                return false;
             }
-        }
 
-        if (socialNode == null) {
-            System.out.println("Red social no encontrada");
+            JsonNode rootNode = optionalRootNode.get();
+            JsonNode socialNode = null;
+
+            for (JsonNode node : rootNode) {
+                if (node.has("name") && node.get("name").asText().equals(socialNetwork)) {
+                    socialNode = node;
+                    break;
+                }
+            }
+
+            if (socialNode == null) {
+                System.out.println("Red social no encontrada");
+                return false;
+            }
+
+            JsonNode userNode = socialNode.path("users").path("root");
+            if (userNode.isMissingNode()) {
+                System.out.println("Usuario no encontrado");
+                return false;
+            }
+
+            return userExists(userNode, username, password);
+        } catch (Exception e) {
+            System.out.println("Error al procesar la solicitud");
             return false;
         }
-
-       JsonNode userNode = socialNode.path("users").path("root");
-        if (userNode.isMissingNode()) {
-            System.out.println("Usuario no encontrado");
-            return false;
-        }
-
-        return userExists(userNode, username, password);
-    } catch (Exception e) {
-        System.out.println("Error al procesar la solicitud");
-        return false;
     }
-}
 
     private boolean userExists(JsonNode userNode, String username, String password) {
 

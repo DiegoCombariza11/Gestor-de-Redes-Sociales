@@ -86,10 +86,4 @@ document.getElementById('continue').addEventListener('click', function() {
         });
 });
 
-    // window.location.replace('/pages/Home.html');
-
-
-
-
-
-
+// window.location.replace('/pages/Home.html');
