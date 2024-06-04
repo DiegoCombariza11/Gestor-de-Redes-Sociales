@@ -87,6 +87,12 @@ public class Controller {
             }
         }
     }
+    public void addFriend(User user) {
+        if(userLogged!=null){
+            userLogged.addFrined(user.getUsername());
+            writeSocialMedia();
+        }
+    }
 
     public User getUserLogged() {
         return userLogged;

@@ -8,12 +8,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
+
+@Service
 public class PersistenceController {
     private BufferedReader bf;
     private File file;
@@ -74,4 +77,14 @@ public class PersistenceController {
         }
         return reds;
     }
+    public Optional<JsonNode> readJsonFile(String filename) {
+        try {
+            File jsonFile = new File(direction + filename + extension);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return Optional.of(objectMapper.readTree(jsonFile));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+    }
+
 }
