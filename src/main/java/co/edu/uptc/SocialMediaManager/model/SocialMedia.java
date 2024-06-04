@@ -28,8 +28,16 @@ public class SocialMedia {
     public void addUser(User user) {
         this.users.add(user, this.users.getRoot());
     }
-    
+    private Node<User> findUserNode(Node<User> currentNode, User user) {
+        if (currentNode == null) return null;
+        if (currentNode.getData().equals(user)) return currentNode;
 
+        for (Node<User> child : currentNode.getChildren()) {
+            Node<User> foundNode = findUserNode(child, user);
+            if (foundNode != null) return foundNode;
+        }
+        return null;
+    }
     private Node<User> findParentNode(Node<User> currentNode, Node<User> targetNode) {
         if (currentNode == null) return null;
         if (currentNode.getChildren().contains(targetNode)) return currentNode;
