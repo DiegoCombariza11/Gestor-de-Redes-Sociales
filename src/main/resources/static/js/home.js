@@ -1,18 +1,14 @@
-/*fetch('/test', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        'key1': 'value1',
-        'key2': 'value2'
-        // Aquí puedes agregar más datos si es necesario
-    })
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch((error) => {
-  console.error('Error:', error);
-});
+function getSimpleCookie(name) {
+    let cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='))
+        .split('=')[1];
+    return cookieValue || null;
+}
 
- */
+
+let userCookieValue = getSimpleCookie('user');
+let socialMediaCookieValue = getSimpleCookie('socialMedia');
+
+console.log('Cookie de usuario: ' + userCookieValue);
+console.log('Cookie de red social: ' + socialMediaCookieValue);
