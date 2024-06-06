@@ -1,10 +1,5 @@
 package co.edu.uptc.SocialMediaManager.model;
-
-import co.edu.uptc.SocialMediaManager.controller.BinaryTree;
-import co.edu.uptc.SocialMediaManager.controller.NTree;
-import com.google.gson.annotations.Expose;
-
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
@@ -12,43 +7,33 @@ public class User {
     private String email;
     private String password;
     private String username;
-    private BinaryTree<Post> posts;
-    private BinaryTree<String> friends;
+    private ArrayList<Post> posts;
+    private ArrayList<String> friends;
     public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.username = username;
-        this.posts = new BinaryTree<>(new Comparator<Post>() {
-            @Override
-            public int compare(Post o1, Post o2) {
-                return o1.getLikes()-o2.getLikes();
-            }
-        });
-        this.friends=new BinaryTree<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
+        this.posts = new ArrayList<>();
+        this.friends=new ArrayList<>();
     }
 
-    public BinaryTree<String> getFriends() {
+    public ArrayList<String> getFriends() {
         return friends;
     }
 
-    public void setFriends(BinaryTree<String> friends) {
+    public void setFriends(ArrayList<String> friends) {
         this.friends = friends;
     }
 
-    public BinaryTree getPosts() {
+    public ArrayList<Post> getPosts() {
         return posts;
     }
 
     public void addPost(Post post) {
         this.posts.add(post);
     }
-    public void addFrined(String userName) {
+    public void addFriend(String userName) {
         this.friends.add(userName);
     }
 
@@ -91,8 +76,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", posts=" + (posts != null ? posts.printTree(posts.getRoot()) : "null") +
-                ", friends=" + (friends != null ? friends.printTree(friends.getRoot()) : "null") +
+                ", posts=" + posts+
+                ", friends=" + friends +
                 '}';
     }
 

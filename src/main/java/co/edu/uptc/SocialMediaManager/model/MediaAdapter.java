@@ -12,8 +12,8 @@ public class MediaAdapter implements JsonSerializer<SocialMedia> {
     public JsonElement serialize(SocialMedia src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", src.getName());
-        JsonElement users = context.serialize(src.getUsers());
-        jsonObject.add("users", users);
+//        JsonElement users = context.serialize(src.getUsers());
+//        jsonObject.add("users", users);
 
         return jsonObject;
     }
