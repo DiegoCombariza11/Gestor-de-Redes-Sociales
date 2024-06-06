@@ -1,8 +1,6 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Node;
-import co.edu.uptc.SocialMediaManager.model.SocialMedia;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -55,6 +53,10 @@ public class NTree<T> implements Serializable {
         } else {
             throw new IllegalArgumentException("Root already exists");
         }
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
     }
 }
 
