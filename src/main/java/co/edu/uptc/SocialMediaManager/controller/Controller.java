@@ -2,31 +2,44 @@ package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.Post;
-import co.edu.uptc.SocialMediaManager.model.SocialMedia;
 import co.edu.uptc.SocialMediaManager.model.User;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Controller {
-    private User userLogged;
-    private SocialMedia socialMediaLogged;
+    private NTree<Object> socialMedia;
     private PersistenceController pc;
 
-    public Controller() {
+    public Controller(String socialMedia) {
+        this.socialMedia = new NTree<>(socialMedia);
         pc = new PersistenceController();
-        this.userLogged = null;
-        socialMediaLogged = null;
     }
 
-    public void createPost(String content, String date) {
-        if (userLogged != null && socialMediaLogged != null) {
+    public Controller() {
+        this.socialMedia = new NTree<>();
+        pc = new PersistenceController();
+    }
+
+    public void addUser(User user) {
+        socialMedia.add(user, socialMedia.getRoot());
+        writeSocialMedia();
+    }
+
+    public void createPost(String content, String date, User user) {
+        if (socialMedia != null) {
             Post p = new Post(content, date);
-            Node<User> userNode = findUserRecursive(socialMediaLogged.getUsers().getRoot(), userLogged.getUsername(), userLogged.getPassword());
+            Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
             if (userNode != null) {
-                userNode.getData().addPost(p);
-                writeSocialMedia();
+                User c = (User) userNode.getData();
+                if (c != null) {
+                    c.addPost(p);
+                    writeSocialMedia();
+                } else {
+                    System.out.println("User data is null");
+                }
+            } else {
+                System.out.println("User not found");
             }
         }
     }
@@ -43,79 +56,108 @@ public class Controller {
         return false;
     }
 
-    public void setSocialMediaLogged(SocialMedia socialMediaLogged) {
-        this.socialMediaLogged = socialMediaLogged;
-    }
-
-    private Node<User> findUserRecursive(Node<User> node, String username, String password) {
+    private Node<Object> findUserRecursive(Node<Object> node, String username, String password) {
         if (node == null) {
             return null;
         }
-
-        User user = node.getData();
-        if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-            return node;
+        if (node.getData() instanceof User) {
+            User user = (User) node.getData();
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return node;
+            }
         }
-
-        for (Node<User> child : node.getChildren()) {
-            Node<User> result = findUserRecursive(child, username, password);
+        for (Node<Object> child : node.getChildren()) {
+            Node<Object> result = findUserRecursive(child, username, password);
             if (result != null) {
                 return result;
             }
         }
-
         return null;
     }
 
-    public void writeSocialMedia() {
-        List<SocialMedia> aux=pc.readFile("SocialMedia");
-        if(aux!=null){
-            for (SocialMedia sm:aux) {
-                if(sm.equals(socialMediaLogged)){
-                    aux.remove(sm);
-                    break;
+    public void findSocialMedia(String socialMedia) {
+        List<NTree<Object>> aux = pc.readFile("SocialMedia");
+        if (aux != null) {
+            for (NTree<Object> tree : aux) {
+                Node<Object> rootNode = tree.getRoot();
+                if (rootNode.getData() instanceof String) {
+                    String existingTreeName = (String) rootNode.getData();
+                    if (existingTreeName.equals(socialMedia)) {
+                        this.socialMedia = tree;
+                        break;
+                    }
                 }
             }
-            aux.add(socialMediaLogged);
-            pc.writeFile("SocialMedia", aux);
-        }else {
-            ArrayList<SocialMedia> c =new ArrayList<>();
-            c.add(socialMediaLogged);
-            pc.writeFile("SocialMedia", c);
         }
     }
 
-    public List<SocialMedia> getSocialPersistence() {
-        return pc.readFile("SocialMedia");
+    public void writeSocialMedia() {
+        List<NTree<Object>> aux = pc.readFile("SocialMedia");
+        boolean updated = false;
+        if (aux != null) {
+            for (NTree<Object> tree : aux) {
+                Node<Object> rootNode = tree.getRoot();
+                if (rootNode.getData() instanceof String) {
+                    String existingTreeName = (String) rootNode.getData();
+                    String currentTreeName = (String) socialMedia.getRoot().getData();
+                    if (existingTreeName.equals(currentTreeName)) {
+                        tree.setRoot(socialMedia.getRoot());
+                        updated = true;
+                        break;
+                    }
+                }
+            }
+            if (!updated) {
+                aux.add(socialMedia);
+            }
+        } else {
+            aux = new ArrayList<>();
+            aux.add(socialMedia);
+        }
+        pc.writeFile("SocialMedia", aux);
     }
 
-    public void reacted(String post, User user) {
-        if (userLogged != null && userLogged.getPosts() != null) {
-            Post aux = (Post) userLogged.getPosts().findValue(userLogged.getPosts().getRoot(), post);
-            if (aux != null) {
-                aux.setLikes(aux.getLikes() + 1);
-                aux.addInteraction(user);
+    public void reacted(String post, User user, String date) {
+        Node<Object> aux = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
+        User u = (User) aux.getData();
+        if (u != null && u.getPosts() != null) {
+            Post postAux = findPost(u, post);
+            if (postAux != null) {
+                postAux.setLikes(postAux.getLikes() + 1);
+                postAux.addInteraction(user, date);
                 writeSocialMedia();
             }
         }
     }
-    public void addFriend(User user) {
-        if(userLogged!=null){
-            userLogged.addFrined(user.getUsername());
+
+    public Post getPost(String post, User user) {
+        Node<Object> aux = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
+        if (aux == null) {
+            return null;
+        }
+        User u = (User) aux.getData();
+        if (u != null && u.getPosts() != null) {
+            return findPost(u, post);
+        }
+        return null;
+    }
+
+    public Post findPost(User user, String content) {
+        ArrayList<Post> aux = user.getPosts();
+        for (Post post : aux) {
+            if (post.getContent().toLowerCase().contains(content.toLowerCase())) {
+                return post;
+            }
+        }
+        return null;
+    }
+
+    public void addFriend(User user, User friend) {
+        Node<Object> aux = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
+        User u = (User) aux.getData();
+        if (u != null) {
+            u.addFriend(friend.getUsername());
             writeSocialMedia();
         }
     }
-
-    public User getUserLogged() {
-        return userLogged;
-    }
-
-    public SocialMedia getSocialMediaLogged() {
-        return socialMediaLogged;
-    }
-
-    public void setUserLogged(User userLogged) {
-        this.userLogged = userLogged;
-    }
-
 }
