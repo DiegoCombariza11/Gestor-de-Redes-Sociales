@@ -2,15 +2,17 @@ package co.edu.uptc.SocialMediaManager.model;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
 
+import java.util.ArrayList;
+
 public class Post  {
     private String content;
     private String date;
-    private NTree<Interaction> interactions;
+    private ArrayList<Interaction> interactions;
     private int likes;
     public Post(String content, String date) {
         this.content = content;
         this.date = date;
-        this.interactions=new NTree<>();
+        this.interactions=new ArrayList<>();
         this.likes=0;
     }
 
@@ -30,7 +32,7 @@ public class Post  {
         this.date = date;
     }
 
-    public NTree<Interaction> getInteractions() {
+    public ArrayList<Interaction> getInteractions() {
         return interactions;
     }
 
@@ -50,11 +52,11 @@ public class Post  {
         this.likes = likes;
     }
 
-    public void setInteractions(NTree<Interaction> interactions) {
+    public void setInteractions(ArrayList<Interaction> interactions) {
         this.interactions = interactions;
     }
 
     public void addInteraction(User user, String date) {
-        this.interactions.add(new Interaction(date, user.getName()), this.interactions.getRoot());
+        this.interactions.add(new Interaction(date, user.getName()));
     }
 }
