@@ -1,87 +1,6 @@
 [
   {
     "root": {
-      "data": "Facebook",
-      "children": [
-        {
-          "data": {
-            "name": "Juan",
-            "email": "asdasd@",
-            "password": "123",
-            "username": "juan",
-            "posts": [
-              {
-                "content": "Hola",
-                "date": "2021-01-01",
-                "interactions": [
-                  {
-                    "date": "2021-01-10",
-                    "user": "Juan"
-                  }
-                ],
-                "likes": 1
-              },
-              {
-                "content": "Adios",
-                "date": "2021-12-01",
-                "interactions": [],
-                "likes": 0
-              }
-            ],
-            "friends": [
-              "pedro"
-            ]
-          },
-          "children": []
-        },
-        {
-          "data": {
-            "name": "Pedro",
-            "email": "asdasd@",
-            "password": "123",
-            "username": "pedro",
-            "posts": [
-              {
-                "content": "Hola",
-                "date": "2021-01-01",
-                "interactions": [
-                  {
-                    "date": "2021-01-10",
-                    "user": "Juan"
-                  },
-                  {
-                    "date": "2021-01-10",
-                    "user": "Alberto"
-                  },
-                  {
-                    "date": "2021-01-11",
-                    "user": "camilo"
-                  },
-                  {
-                    "date": "2021-01-12",
-                    "user": "diego"
-                  }
-                ],
-                "likes": 4
-              },
-              {
-                "content": "Adios",
-                "date": "2021-12-01",
-                "interactions": [],
-                "likes": 0
-              }
-            ],
-            "friends": [
-              "juan"
-            ]
-          },
-          "children": []
-        }
-      ]
-    }
-  },
-  {
-    "root": {
       "data": "X",
       "children": [
         {
@@ -94,21 +13,18 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "interactions": {
-                  "root": {
-                    "data": {
-                      "date": "2021-01-10",
-                      "user": "Juan"
-                    },
-                    "children": []
+                "interactions": [
+                  {
+                    "date": "2021-01-10",
+                    "user": "Juan"
                   }
-                },
+                ],
                 "likes": 1
               },
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "interactions": {},
+                "interactions": [],
                 "likes": 0
               }
             ],
@@ -128,13 +44,13 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "interactions": {},
+                "interactions": [],
                 "likes": 0
               },
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "interactions": {},
+                "interactions": [],
                 "likes": 0
               }
             ],
