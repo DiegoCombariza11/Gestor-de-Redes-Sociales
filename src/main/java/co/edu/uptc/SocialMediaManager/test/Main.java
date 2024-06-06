@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Controller c = new Controller("Facebook");
+        Controller c = new Controller("X");
 
         // Create users
         User juan = new User("Juan", "asdasd@", "123", "juan");

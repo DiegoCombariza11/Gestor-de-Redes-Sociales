@@ -79,5 +79,72 @@
         }
       ]
     }
+  },
+  {
+    "root": {
+      "data": "X",
+      "children": [
+        {
+          "data": {
+            "name": "Juan",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "juan",
+            "posts": [
+              {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": {
+                  "root": {
+                    "data": {
+                      "date": "2021-01-10",
+                      "user": "Juan"
+                    },
+                    "children": []
+                  }
+                },
+                "likes": 1
+              },
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": {},
+                "likes": 0
+              }
+            ],
+            "friends": [
+              "pedro"
+            ]
+          },
+          "children": []
+        },
+        {
+          "data": {
+            "name": "Pedro",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "pedro",
+            "posts": [
+              {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": {},
+                "likes": 0
+              },
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": {},
+                "likes": 0
+              }
+            ],
+            "friends": [
+              "juan"
+            ]
+          },
+          "children": []
+        }
+      ]
+    }
   }
 ]
