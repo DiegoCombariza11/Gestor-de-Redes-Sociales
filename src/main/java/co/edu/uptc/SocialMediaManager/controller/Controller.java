@@ -1,12 +1,14 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
+import co.edu.uptc.SocialMediaManager.model.Interaction;
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.Post;
 import co.edu.uptc.SocialMediaManager.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class Controller {
     private NTree<Object> socialMedia;
     private PersistenceController pc;
@@ -147,5 +149,28 @@ public class Controller {
             u.addFriend(friend.getUsername());
             writeSocialMedia();
         }
+    }
+    public List<Interaction> getInteractionsOfPost(String username,String password, String socialMediaName, String content) {
+        // Paso 1: Buscar la red social
+        findSocialMedia(socialMediaName);
+
+        // Paso 2: Buscar el usuario dentro de la red social
+        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username,password);
+        if (userNode == null || !(userNode.getData() instanceof User)) {
+            System.out.println("Usuario no encontrado.");
+            return new ArrayList<>(); // Devuelve una lista vacía si no se encuentra el usuario
+        }
+
+        User user = (User) userNode.getData();
+
+        // Paso 3: Buscar la publicación dentro de las publicaciones del usuario
+        Post post = findPost(user, content);
+        if (post == null) {
+            System.out.println("Publicación no encontrada.");
+            return new ArrayList<>(); // Devuelve una lista vacía si no se encuentra la publicación
+        }
+
+        // Paso 4: Recuperar y devolver las interacciones de la publicación
+        return post.getInteractions();
     }
 }

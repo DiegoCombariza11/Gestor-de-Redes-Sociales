@@ -15,6 +15,6 @@ public class InteractionController {
     }
     @GetMapping("/interactions")
     public List<Interaction> getInteractions() {
-        return controller.getInteractionsOfPost("Pedro","Facebook","Hola");
+        return controller.getInteractionsOfPost("pedro","123","Facebook","Hola");
     }
 }
