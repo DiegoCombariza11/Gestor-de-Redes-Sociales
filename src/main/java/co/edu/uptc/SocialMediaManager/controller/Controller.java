@@ -140,6 +140,7 @@ public class Controller {
         return null;
     }
 
+
     public void addFriend(User user, User friend) {
         Node<Object> aux = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
         User u = (User) aux.getData();

@@ -1,7 +1,5 @@
 package co.edu.uptc.SocialMediaManager.model;
-import co.edu.uptc.SocialMediaManager.model.Node;
-import co.edu.uptc.SocialMediaManager.model.Post;
-import co.edu.uptc.SocialMediaManager.model.User;
+
 import com.google.gson.*;
 import java.lang.reflect.Type;
 
@@ -19,6 +17,8 @@ public class NodeTypeAdapter implements JsonDeserializer<Node<Object>> {
                 data = context.deserialize(dataElement, User.class);
             } else if (dataObject.has("content")) { // Assuming Post objects have a 'content' field
                 data = context.deserialize(dataElement, Post.class);
+            } else if (dataObject.has("date") && dataObject.has("user")) { // Assuming Interaction objects have 'date' and 'user' fields
+                data = context.deserialize(dataElement, Interaction.class);
             } else {
                 data = context.deserialize(dataElement, Object.class);
             }
@@ -35,4 +35,3 @@ public class NodeTypeAdapter implements JsonDeserializer<Node<Object>> {
         return node;
     }
 }
-
