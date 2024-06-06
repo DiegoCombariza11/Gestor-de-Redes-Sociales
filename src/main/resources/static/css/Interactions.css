@@ -1,0 +1,20 @@
+.container {
+    margin-top: 50px;
+}
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+.navbar{
+    background-color: #81bfff;
+    height: fit-content;
+
+}
+.container-nav{
+    align-content: center;
+}
+.navbar-brand{
+    color: white;
+
+}

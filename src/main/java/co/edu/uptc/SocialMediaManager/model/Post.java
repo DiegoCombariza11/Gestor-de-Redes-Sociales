@@ -1,19 +1,18 @@
 package co.edu.uptc.SocialMediaManager.model;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
-import com.google.gson.annotations.Expose;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 
 public class Post  {
     private String content;
     private String date;
-    private NTree<String> interactions;
+    private ArrayList<Interaction> interactions;
     private int likes;
     public Post(String content, String date) {
         this.content = content;
         this.date = date;
-        this.interactions=new NTree<>();
+        this.interactions=new ArrayList<>();
         this.likes=0;
     }
 
@@ -33,7 +32,7 @@ public class Post  {
         this.date = date;
     }
 
-    public NTree<String> getInteractions() {
+    public ArrayList<Interaction> getInteractions() {
         return interactions;
     }
 
@@ -53,11 +52,11 @@ public class Post  {
         this.likes = likes;
     }
 
-    public void setInteractions(NTree<String> interactions) {
+    public void setInteractions(ArrayList<Interaction> interactions) {
         this.interactions = interactions;
     }
 
-    public void addInteraction(User user) {
-        this.interactions.add(user.getUsername(), this.interactions.getRoot());
+    public void addInteraction(User user, String date) {
+        this.interactions.add(new Interaction(date, user.getName()));
     }
 }

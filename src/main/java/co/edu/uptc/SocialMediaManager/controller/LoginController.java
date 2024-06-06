@@ -1,17 +1,17 @@
 package co.edu.uptc.SocialMediaManager.controller;
-import co.edu.uptc.SocialMediaManager.service.AuthService;
-import com.fasterxml.jackson.databind.JsonNode;
 
+import co.edu.uptc.SocialMediaManager.service.AuthService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -44,6 +44,11 @@ public class LoginController {
                     .path("/")
                     .build();
 
+            ResponseCookie passwordCookie = ResponseCookie.from("password", password)
+                    .maxAge(24 * 3600)
+                    .httpOnly(false)
+                    .path("/")
+                    .build();
             ResponseCookie socialMediaCookie = ResponseCookie.from("socialMedia", socialNetwork)
                     .maxAge(24 * 3600)
                     .httpOnly(false)
@@ -52,6 +57,7 @@ public class LoginController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.SET_COOKIE, userCookie.toString());
+            headers.add(HttpHeaders.SET_COOKIE, passwordCookie.toString());
             headers.add(HttpHeaders.SET_COOKIE, socialMediaCookie.toString());
             headers.setLocation(URI.create("/pages/Home.html"));
             return new ResponseEntity<>(headers, HttpStatus.FOUND);

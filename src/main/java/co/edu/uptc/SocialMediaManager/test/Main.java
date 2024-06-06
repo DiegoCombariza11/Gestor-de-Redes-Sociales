@@ -1,53 +1,35 @@
 package co.edu.uptc.SocialMediaManager.test;
 
-import co.edu.uptc.SocialMediaManager.controller.Controller;
-import co.edu.uptc.SocialMediaManager.model.SocialMedia;
+import co.edu.uptc.SocialMediaManager.service.Controller;
 import co.edu.uptc.SocialMediaManager.model.User;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Controller c = new Controller();
+        Controller c = new Controller("X");
 
         // Create users
         User juan = new User("Juan", "asdasd@", "123", "juan");
         User pedro = new User("Pedro", "asdasd@", "123", "pedro");
 
-        // Create social media platforms
-        SocialMedia facebook = new SocialMedia("Facebook");
-        SocialMedia twitter = new SocialMedia("Twitter");
         // Add users to social media platforms
-        c.setSocialMediaLogged(facebook);
-        c.getSocialMediaLogged().addUser(juan);
-        c.setUserLogged(juan);
-        c.createPost("Hola", LocalDate.of(2021, 1, 1).toString());
-        c.createPost("Adios", LocalDate.of(2021, 12, 1).toString());
-        c.addFriend(pedro);
-        c.setSocialMediaLogged(facebook);
-        c.getSocialMediaLogged().addUser(pedro);
-
-        // Log in as Juan and create posts
-        c.setUserLogged(pedro);
-        c.createPost("Hola", LocalDate.of(2021, 1, 1).toString());
-        c.createPost("Adios", LocalDate.of(2021, 12, 1).toString());
-
-        // Save Facebook data
+        c.addUser(juan);
+        c.createPost("Hola", LocalDate.of(2021, 1, 1).toString(), juan);
+        c.createPost("Adios", LocalDate.of(2021, 12, 1).toString(), juan);
+        c.addFriend(juan, pedro);
+        c.addUser(pedro);
 
         // Log in as Pedro and create posts
-        c.setUserLogged(pedro);
-        c.createPost("Hola", LocalDate.of(2021, 1, 1).toString());
+        c.createPost("Hola", LocalDate.of(2021, 1, 1).toString(), pedro);
+        c.createPost("Adios", LocalDate.of(2021, 12, 1).toString(), pedro);
 
-        // Juan reacts to Pedro's post on Twitter
-        c.reacted("Hola", juan);
-        c.addFriend(juan);
-        // Save Twitter data
+        // Juan reacts to Pedro's post
+        c.reacted("Hola", juan, LocalDate.of(2021, 1, 10).toString());
+        c.addFriend(pedro, juan);
+        c=new Controller();
+        c.findSocialMedia("X");
+        System.out.println(c.getPost("Hola", new User("Juan", "asdasd@", "123", "juan")));
 
-        // Print persisted social media data
-        List<SocialMedia> persistedData = c.getSocialPersistence();
-        for (SocialMedia sm : persistedData) {
-            System.out.println(sm);
-        }
     }
 }

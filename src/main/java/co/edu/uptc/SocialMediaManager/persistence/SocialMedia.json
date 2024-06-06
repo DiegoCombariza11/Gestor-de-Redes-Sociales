@@ -1,65 +1,147 @@
 [
   {
-    "name": "Facebook",
-    "users": {
-      "root": {
-        "data": {
-          "name": "Juan",
-          "email": "asdasd@",
-          "password": "123",
-          "username": "juan",
-          "posts": {
-            "root": {
-              "data": {
+    "root": {
+      "data": "Facebook",
+      "children": [
+        {
+          "data": {
+            "name": "Juan",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "juan",
+            "posts": [
+              {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "interactions": {},
+                "interactions": [
+                  {
+                    "date": "2021-01-10",
+                    "user": "Juan"
+                  }
+                ],
+                "likes": 1
+              },
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": [],
+                "likes": 0
+              }
+            ],
+            "friends": [
+              "pedro"
+            ]
+          },
+          "children": []
+        },
+        {
+          "data": {
+            "name": "Pedro",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "pedro",
+            "posts": [
+              {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": [
+                  {
+                    "date": "2021-01-10",
+                    "user": "Juan"
+                  },
+                  {
+                    "date": "2021-01-10",
+                    "user": "Alberto"
+                  },
+                  {
+                    "date": "2021-01-11",
+                    "user": "camilo"
+                  },
+                  {
+                    "date": "2021-01-12",
+                    "user": "diego"
+                  }
+                ],
+                "likes": 4
+              },
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": [],
+                "likes": 0
+              }
+            ],
+            "friends": [
+              "juan"
+            ]
+          },
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "root": {
+      "data": "X",
+      "children": [
+        {
+          "data": {
+            "name": "Juan",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "juan",
+            "posts": [
+              {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": [
+                  {
+                    "date": "2021-01-10",
+                    "user": "Juan"
+                  }
+                ],
+                "likes": 1
+              },
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": [],
+                "likes": 0
+              }
+            ],
+            "friends": [
+              "pedro"
+            ]
+          },
+          "children": []
+        },
+        {
+          "data": {
+            "name": "Pedro",
+            "email": "asdasd@",
+            "password": "123",
+            "username": "pedro",
+            "posts": [
+              {
+                "content": "Hola",
+                "date": "2021-01-01",
+                "interactions": [],
                 "likes": 0
               },
-              "children": []
-            }
-          },
-          "friends": {
-            "root": {
-              "data": "pedro",
-              "children": []
-            }
-          }
-        },
-        "children": [
-          {
-            "data": {
-              "name": "Pedro",
-              "email": "asdasd@",
-              "password": "123",
-              "username": "pedro",
-              "posts": {
-                "root": {
-                  "data": {
-                    "content": "Hola",
-                    "date": "2021-01-01",
-                    "interactions": {
-                      "root": {
-                        "data": "juan",
-                        "children": []
-                      }
-                    },
-                    "likes": 1
-                  },
-                  "children": []
-                }
-              },
-              "friends": {
-                "root": {
-                  "data": "juan",
-                  "children": []
-                }
+              {
+                "content": "Adios",
+                "date": "2021-12-01",
+                "interactions": [],
+                "likes": 0
               }
-            },
-            "children": []
-          }
-        ]
-      }
+            ],
+            "friends": [
+              "juan"
+            ]
+          },
+          "children": []
+        }
+      ]
     }
   }
 ]
