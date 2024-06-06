@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class Controller {
     private NTree<Object> socialMedia;
@@ -153,12 +154,13 @@ public class Controller {
             writeSocialMedia();
         }
     }
-    public List<Interaction> getInteractionsOfPost(String username,String password, String socialMediaName, String content) {
+
+    public List<Interaction> getInteractionsOfPost(String username, String password, String socialMediaName, String content) {
         // Paso 1: Buscar la red social
         findSocialMedia(socialMediaName);
 
         // Paso 2: Buscar el usuario dentro de la red social
-        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username,password);
+        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username, password);
         if (userNode == null || !(userNode.getData() instanceof User)) {
             System.out.println("Usuario no encontrado.");
             return new ArrayList<>(); // Devuelve una lista vacía si no se encuentra el usuario
@@ -175,5 +177,16 @@ public class Controller {
 
         // Paso 4: Recuperar y devolver las interacciones de la publicación
         return post.getInteractions();
+    }
+
+    public ArrayList<Post> getPostsByUsername(String username, String password) {
+        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username, password);
+        if (userNode == null || !(userNode.getData() instanceof User)) {
+            System.out.println("Usuario no encontrado.");
+            return new ArrayList<>();
+        }
+
+        User user = (User) userNode.getData();
+        return user.getPosts();
     }
 }
