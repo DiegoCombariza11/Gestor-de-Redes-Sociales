@@ -43,19 +43,6 @@ public class Controller {
             }
         }
     }
-    public boolean createPost1(String content, String date) {
-        if (userLogged != null && socialMediaLogged != null) {
-            Post p = new Post(content, date);
-            Node<User> userNode = findUserRecursive(socialMediaLogged.getUsers().getRoot(), userLogged.getUsername(), userLogged.getPassword());
-            if (userNode != null) {
-                userNode.getData().addPost(p);
-                writeSocialMedia();
-                return true;
-            }
-        }
-        return false;
-    }
-
     private Node<Object> findUserRecursive(Node<Object> node, String username, String password) {
         if (node == null) {
             return null;
