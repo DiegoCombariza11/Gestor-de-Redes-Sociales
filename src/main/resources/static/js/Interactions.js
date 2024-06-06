@@ -1,13 +1,28 @@
+function getSimpleCookie(name) {
+    let cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='))
+        .split('=')[1];
+    return cookieValue || null;
+}
+let userCookieValue = getSimpleCookie('user');
+let socialMediaCookieValue = getSimpleCookie('socialMedia');
+let passwordCookieValue = getSimpleCookie('password');
 document.addEventListener('DOMContentLoaded', async function () {
     const ctx = document.getElementById('interactionChart').getContext('2d');
 
     async function getInteractions() {
         const request = await fetch('/interactions', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            body : JSON.stringify({
+                "user": userCookieValue,
+                "password": passwordCookieValue,
+                "socialMedia": socialMediaCookieValue
+            })
         });
         const interactions = await request.json();
         const interactionData = [];

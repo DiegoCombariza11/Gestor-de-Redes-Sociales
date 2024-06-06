@@ -1,6 +1,6 @@
 package co.edu.uptc.SocialMediaManager.test;
 
-import co.edu.uptc.SocialMediaManager.controller.Controller;
+import co.edu.uptc.SocialMediaManager.service.Controller;
 import co.edu.uptc.SocialMediaManager.model.User;
 
 import java.time.LocalDate;
