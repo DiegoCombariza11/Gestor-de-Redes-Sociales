@@ -176,4 +176,30 @@ public class Controller {
         // Paso 4: Recuperar y devolver las interacciones de la publicación
         return post.getInteractions();
     }
+    public String averageEngagement(String username,String password, String socialMediaName, String content) {
+        // Paso 1: Buscar la red social
+        findSocialMedia(socialMediaName);
+
+        // Paso 2: Buscar el usuario dentro de la red social
+        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username,password);
+        if (userNode == null || !(userNode.getData() instanceof User)) {
+            System.out.println("Usuario no encontrado.");
+            return "Usuario no encontrado.";
+        }
+
+        User user = (User) userNode.getData();
+
+        // Paso 3: Buscar la publicación dentro de las publicaciones del usuario
+        Post post = findPost(user, content);
+        if (post == null) {
+            System.out.println("Publicación no encontrada.");
+            return "Publicación no encontrada.";
+        }
+        double engagement=post.getLikes()/user.getFriends().size();
+        if(engagement>=1){
+            return "La publicación tiene un buena acogida, con un promedio de: "+engagement;
+        }else {
+            return "La publicación tiene un mal acogida, con un promedio de: "+engagement;
+        }
+    }
 }

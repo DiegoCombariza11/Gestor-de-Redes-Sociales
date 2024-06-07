@@ -3,6 +3,7 @@ package co.edu.uptc.SocialMediaManager.controller;
 import co.edu.uptc.SocialMediaManager.model.Interaction;
 import co.edu.uptc.SocialMediaManager.model.User;
 import co.edu.uptc.SocialMediaManager.service.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,5 +24,13 @@ public class InteractionController {
         String user = payload.get("user");
         String password = payload.get("password");
         return controller.getInteractionsOfPost(user,password,socialMedia,"Hola");
+    }
+    @PostMapping("/engagement")
+    public ResponseEntity<String> getEngagement(@RequestBody Map<String, String> payload) {
+        String socialMedia = payload.get("socialMedia");
+        String user = payload.get("user");
+        String password = payload.get("password");
+        String post = payload.get("post");
+        return ResponseEntity.ok(controller.averageEngagement(user,password,socialMedia,post));
     }
 }

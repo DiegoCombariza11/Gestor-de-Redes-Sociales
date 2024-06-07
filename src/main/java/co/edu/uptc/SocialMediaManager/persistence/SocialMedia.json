@@ -125,8 +125,25 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "interactions": [],
-                "likes": 0
+                "interactions": [
+                  {
+                    "date": "2021-01-10",
+                    "user": "Juan"
+                  },
+                  {
+                    "date": "2021-01-10",
+                    "user": "Alberto"
+                  },
+                  {
+                    "date": "2021-01-11",
+                    "user": "camilo"
+                  },
+                  {
+                    "date": "2021-01-12",
+                    "user": "diego"
+                  }
+                ],
+                "likes": 4
               },
               {
                 "content": "Adios",
@@ -136,7 +153,13 @@
               }
             ],
             "friends": [
-              "juan"
+              "juan",
+              "carlos",
+              "diego",
+              "luis",
+              "jose",
+              "maria",
+              "laura"
             ]
           },
           "children": []

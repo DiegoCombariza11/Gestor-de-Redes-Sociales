@@ -5,6 +5,7 @@ function getSimpleCookie(name) {
         .split('=')[1];
     return cookieValue || null;
 }
+
 let userCookieValue = getSimpleCookie('user');
 let socialMediaCookieValue = getSimpleCookie('socialMedia');
 let passwordCookieValue = getSimpleCookie('password');
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({
+            body: JSON.stringify({
                 "user": userCookieValue,
                 "password": passwordCookieValue,
                 "socialMedia": socialMediaCookieValue
@@ -34,13 +35,32 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (existingInteraction) {
                 existingInteraction.interactions += 1;
             } else {
-                interactionData.push({ date: interactionDate, interactions: 1 });
+                interactionData.push({date: interactionDate, interactions: 1});
             }
         });
 
         interactionData.sort((a, b) => a.date - b.date);
 
         return interactionData;
+    }
+
+    async function getEngagement() {
+        const request = await fetch('/engagement', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "user": userCookieValue,
+                "password": passwordCookieValue,
+                "socialMedia": socialMediaCookieValue,
+                "post": "Hola"
+            })
+        });
+        const engagement = await request.json();
+        document.getElementById("message").value=engagement.toString();
+        return engagement;
     }
 
     async function renderChart() {
@@ -94,6 +114,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
     }
-
     renderChart();
+    getEngagement();
 });
