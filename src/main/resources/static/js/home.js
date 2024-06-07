@@ -18,10 +18,7 @@ console.log('Cookie de red social: ' + socialMediaCookieValue);
 document.getElementById('username').textContent = userCookieValue;
 
 
-
-
-
-fetch('/api/posts', {
+fetch('/posts', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -35,19 +32,49 @@ fetch('/api/posts', {
 .then(response => response.json())
 .then(posts => {
     console.log('Posts:', posts);
-    const postsContainer = document.getElementById('posts-container');
-    postsContainer.innerHTML = '';
+    const postsTableBody = document.getElementById('post-tbody');
+    postsTableBody.innerHTML = '';
     posts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.className = 'post';
-        postElement.innerHTML = `
-            <h2>${post.title}</h2>
-            <p>${post.content}</p>
-            <p>${post.author}</p>
-            <p>${post.date}</p>
+        const postRow = document.createElement('tr');
+        postRow.innerHTML = `
+            <td>${post.title}</td>
+            <td>${post.date}</td>
+            <td>
+                <a href="viewPost.html?id=${post.id}" class="btn btn-primary">View</a>
+                <a href="editPost.html?id=${post.id}" class="btn btn-secondary">Edit</a>
+                <a href="#" class="btn btn-danger" onclick="deletePost(${post.id})">Delete</a>
+            </td>
         `;
-        postsContainer.appendChild(postElement);
+        postsTableBody.appendChild(postRow);
     });
-
 })
 .catch(error => console.error('Error:', error));
+
+
+/*
+
+fetch('/friends', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        'username': userCookieValue,
+        'password': password,
+        'socialMediaName': socialMediaCookieValue
+    })
+})
+.then(response => response.json())
+.then(friends => {
+    console.log('Friends:', friends);
+    const friendsList = document.getElementById('friends-list');
+    friendsList.innerHTML = '';
+    friends.forEach(friend => {
+        const friendItem = document.createElement('li');
+        friendItem.textContent = friend;
+        friendsList.appendChild(friendItem);
+    });
+})
+.catch(error => console.error('Error:', error));
+
+ */

@@ -1,7 +1,6 @@
 package co.edu.uptc.SocialMediaManager.service;
 
 import co.edu.uptc.SocialMediaManager.controller.NTree;
-import co.edu.uptc.SocialMediaManager.controller.PersistenceController;
 import co.edu.uptc.SocialMediaManager.model.Interaction;
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.Post;
@@ -182,11 +181,22 @@ public class Controller {
     public ArrayList<Post> getPostsByUsername(String username, String password) {
         Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username, password);
         if (userNode == null || !(userNode.getData() instanceof User)) {
-            System.out.println("Usuario no encontrado.");
+            System.out.println("Usuario no encontrado en mostrar post.");
             return new ArrayList<>();
         }
 
         User user = (User) userNode.getData();
         return user.getPosts();
+    }
+
+    public ArrayList<String> getFriends(String socialMediaName, String username, String password) {
+        findSocialMedia(socialMediaName);
+        Node<Object> userNode = findUserRecursive(socialMedia.getRoot(), username, password);
+        if (userNode == null || !(userNode.getData() instanceof User)) {
+            System.out.println("Usuario no encontrado en mostrar amigos.");
+            return new ArrayList<>();
+        }
+        User user = (User) userNode.getData();
+        return user.getFriends();
     }
 }

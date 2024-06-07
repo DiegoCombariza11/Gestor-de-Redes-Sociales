@@ -1,6 +1,5 @@
 package co.edu.uptc.SocialMediaManager.service;
 
-import co.edu.uptc.SocialMediaManager.controller.PersistenceController;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 

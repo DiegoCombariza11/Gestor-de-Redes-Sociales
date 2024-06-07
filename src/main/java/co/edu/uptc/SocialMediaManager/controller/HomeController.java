@@ -19,6 +19,7 @@ public class HomeController {
 
     private final Controller controller;
 
+
     public HomeController(Controller controller) {
         this.controller = controller;
     }
@@ -30,7 +31,7 @@ public class HomeController {
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-    @PostMapping("/api/posts")
+    @PostMapping("/posts")
     public ResponseEntity<List<Post>> getPostsByUsername(@RequestBody Map<String, String> payload) {
         String username = payload.get("username");
         String password = payload.get("password");
@@ -44,6 +45,16 @@ public class HomeController {
         List<Post> posts = controller.getPostsByUsername(username, password);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+    @PostMapping("/friends")
+    public ResponseEntity<List<String>> getFriends(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+        String password = payload.get("password");
+        String socialMediaName = payload.get("socialMediaName");
+
+        List<String> friends = controller.getFriends(socialMediaName, username, password);
+        return new ResponseEntity<>(friends, HttpStatus.OK);
+    }
+
 
 
 

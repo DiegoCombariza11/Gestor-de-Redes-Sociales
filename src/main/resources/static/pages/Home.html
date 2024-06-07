@@ -19,30 +19,43 @@
         <img src="/images/user-avatar.svg" class="rounded-circle" alt="User Photo" width="50" height="50">
     </nav>
 </div>
-    <div class="container mt-5">
-       <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Post Preview</th>
-            <th>Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Fila a fila -->
-        <tr>
-            <td><!-- Post preview --></td>
-            <td><!-- Fecha --></td>
-            <td>
-                <a href="<!-- Página  -->" class="btn btn-primary">View</a>
-                <a href="<!-- Editar -->" class="btn btn-secondary">Edit</a>
-                <a href="<!-- Eliminar -->" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-    </div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Post Preview</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="post-tbody">
+                <!-- Fila a fila -->
+                <tr>
+                    <td><!-- Post preview --></td>
+                    <td><!-- Fecha --></td>
+                    <td>
+                        <a href="<!-- Página  -->" class="btn btn-primary">View</a>
+                        <a href="<!-- Editar -->" class="btn btn-secondary">Edit</a>
+                        <a href="<!-- Eliminar -->" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <aside>
+                    <h3>Lista de amigos</h3>
+                    <ul id="friends-list">
 
-    <script src="/js/home.js"></script>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/home.js"></script>
 </body>
 </html>
