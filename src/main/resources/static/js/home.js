@@ -51,7 +51,8 @@ fetch('/posts', {
 .catch(error => console.error('Error:', error));
 
 
-/*
+
+
 
 fetch('/friends', {
     method: 'POST',
@@ -77,4 +78,3 @@ fetch('/friends', {
 })
 .catch(error => console.error('Error:', error));
 
- */
