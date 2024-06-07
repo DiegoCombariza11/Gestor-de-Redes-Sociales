@@ -1,5 +1,6 @@
-package co.edu.uptc.SocialMediaManager.controller;
+package co.edu.uptc.SocialMediaManager.service;
 
+import co.edu.uptc.SocialMediaManager.controller.NTree;
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.NodeTypeAdapter;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,6 +15,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class PersistenceController {
@@ -31,7 +33,6 @@ public class PersistenceController {
             wr.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -49,7 +50,6 @@ public class PersistenceController {
             wr.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -67,7 +67,6 @@ public class PersistenceController {
             trees = gson.fromJson(bf, treeListType);
             bf.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return trees;
     }
@@ -78,8 +77,8 @@ public class PersistenceController {
             ObjectMapper objectMapper = new ObjectMapper();
             return Optional.of(objectMapper.readTree(jsonFile));
         } catch (IOException e) {
-            e.printStackTrace();
             return Optional.empty();
         }
     }
+
 }

@@ -17,17 +17,21 @@
 <body>
 <header>
     <div class="container-nav">
-        <nav class="navbar">
-            <a class="navbar-brand">Gestionar Redes</a>
-            <span id="welcome" class="navbar-text">
-            Bienvenido
-        </span>
-            <img src="" class="rounded-circle" alt="logo" width="30" height="30">
+        <nav class="navbar fixed-top">
+           <img src="/images/Logo_uptc_oficial.svg" class="img-fluid" alt="logo" width=10% height=auto>
+            <div></div>
+
+
         </nav>
     </div>
 </header>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
+
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <b><span id="welcome" class="navbar-text">
+            Bienvenido, ingresa a tu red social
+            </span></b>
+
 
     <div class="card">
         <div class="card-body">
@@ -40,7 +44,7 @@
                     <button id="next">-></button>
                 </div>
 
-                <input type="hidden" id="socialNetwork" name="socialNetwork" value="SinDefinir">
+                <input type="hidden" id="socialNetwork" name="socialNetwork" value="facebook">
 
                 <div class="mb-3">
                     <label for="username" class="form-label">Nombre de usaurio:</label>
@@ -50,7 +54,7 @@
                     <label for="password" class="form-label">Contraseña:</label>
                     <input type="password" id="password" name="password" class="form-control">
                 </div>
-                <div id = "error-message"> </div>
+                <div id ="error-message"> </div>
                 <div class="mb-3 text-center">
                     <button class="btn btn-primary" id="continue">Continuar</button>
                 </div>
@@ -60,6 +64,9 @@
 </div>
 
 <footer>
+    <a >
+       <img src="https://ih1.redbubble.net/image.634258733.5761/st,small,507x507-pad,600x600,f8f8f8.u8.jpg" alt="logo" width=10% height=auto>
+    </a>
     <p>Los frutifantásticos</p>
 </footer>
 <script src="/js/Login.js"></script>
