@@ -1,7 +1,17 @@
 $(document).ready(function () {
     load();
 });
+function getSimpleCookie(name) {
+    let cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='))
+        .split('=')[1];
+    return cookieValue || null;
+}
 
+let userCookieValue = getSimpleCookie('user');
+let socialMediaCookieValue = getSimpleCookie('socialMedia');
+let passwordCookieValue = getSimpleCookie('password');
 document.getElementById('post1').addEventListener('click', function (event) {
     event.preventDefault();
     const content = document.getElementById('post').value;
@@ -53,12 +63,19 @@ document.getElementById('post1').addEventListener('click', function (event) {
 
 
 function load() {
-    fetch('/post', {
-        method: 'GET',
+    fetch('/getPost', {
+        method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            "user": userCookieValue,
+            "password": passwordCookieValue,
+            "socialMedia": socialMediaCookieValue,
+            "post":"Hola"
+        })
+
     })
         .then(response => response.json())
         .then(post => {

@@ -3,10 +3,11 @@ package co.edu.uptc.SocialMediaManager.controller;
 import co.edu.uptc.SocialMediaManager.model.Node;
 import co.edu.uptc.SocialMediaManager.model.Post;
 import co.edu.uptc.SocialMediaManager.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class Controller {
     private NTree<Object> socialMedia;
     private PersistenceController pc;

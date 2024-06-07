@@ -16,7 +16,6 @@ public class AuthService {
         this.persistenceController = persistenceController;
     }
 
-
     public boolean validateUser(String username, String password, String socialNetwork) {
         try {
             Optional<JsonNode> optionalRootNode = persistenceController.readJsonFile("SocialMedia");
@@ -29,8 +28,8 @@ public class AuthService {
             JsonNode socialNode = null;
 
             for (JsonNode node : rootNode) {
-                if (node.has("name") && node.get("name").asText().equals(socialNetwork)) {
-                    socialNode = node;
+                if (node.has("root") && node.get("root").has("data") && node.get("root").get("data").asText().equals(socialNetwork)) {
+                    socialNode = node.get("root");
                     break;
                 }
             }
@@ -40,22 +39,30 @@ public class AuthService {
                 return false;
             }
 
-            JsonNode userNode = socialNode.path("users").path("root");
-            if (userNode.isMissingNode()) {
-                System.out.println("Usuario no encontrado");
+            JsonNode usersNode = socialNode.path("children");
+            if (usersNode.isMissingNode()) {
+                System.out.println("Usuarios no encontrados");
                 return false;
             }
 
-            return userExists(userNode, username, password);
+            for (JsonNode userNode : usersNode) {
+                if (userExists(userNode, username, password)) {
+                    return true;
+                }
+            }
+
+            return false;
         } catch (Exception e) {
             System.out.println("Error al procesar la solicitud");
+            e.printStackTrace();
             return false;
         }
     }
 
     private boolean userExists(JsonNode userNode, String username, String password) {
+        JsonNode dataNode = userNode.path("data");
 
-        if (userNode.path("data").path("username").asText().equals(username) && userNode.path("data").path("password").asText().equals(password)) {
+        if (dataNode.path("username").asText().equals(username) && dataNode.path("password").asText().equals(password)) {
             return true;
         }
 
@@ -68,26 +75,4 @@ public class AuthService {
 
         return false;
     }
-
-
-//    public boolean validateUser(String username, String password, String socialNetWork) {
-//        System.out.println("Datos recibidos en el servicio: ");
-//        System.out.println("Username: " + username);
-//        System.out.println("Contraseña: "+password);
-//        System.out.println("Red social: "+socialNetWork);
-//
-//        return (existUser(username, password, socialNetWork));
-//    }
-//
-//    public boolean existUser(String username, String password, String socialNetWork) {
-//        if (username.equals("admin") && password.equalsIgnoreCase("admin") && (socialNetWork.equalsIgnoreCase("Facebook")| socialNetWork.equalsIgnoreCase("X")| socialNetWork.equals("X")| socialNetWork.equals("Instagram"))){
-//            System.out.println("usuario admin existente");
-//            return true;
-//        } else {
-//            System.out.println("usuario no existente");
-//            return false;
-//        }
-//
-//    }
-
 }

@@ -44,6 +44,11 @@ public class LoginController {
                     .path("/")
                     .build();
 
+            ResponseCookie passwordCookie = ResponseCookie.from("password", password)
+                    .maxAge(24 * 3600)
+                    .httpOnly(false)
+                    .path("/")
+                    .build();
             ResponseCookie socialMediaCookie = ResponseCookie.from("socialMedia", socialNetwork)
                     .maxAge(24 * 3600)
                     .httpOnly(false)
@@ -52,6 +57,7 @@ public class LoginController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.SET_COOKIE, userCookie.toString());
+            headers.add(HttpHeaders.SET_COOKIE, passwordCookie.toString());
             headers.add(HttpHeaders.SET_COOKIE, socialMediaCookie.toString());
             headers.setLocation(URI.create("/pages/Home.html"));
             return new ResponseEntity<>(headers, HttpStatus.FOUND);

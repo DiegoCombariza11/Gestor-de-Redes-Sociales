@@ -1,6 +1,7 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Post;
+import co.edu.uptc.SocialMediaManager.model.User;
 import co.edu.uptc.SocialMediaManager.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/")
 public class HomeController {
+
+    private final Controller controller;
+    public HomeController(Controller controller) {
+        this.controller = controller;
+    }
 
     @GetMapping("/")
     public ResponseEntity<Void> home(){
@@ -55,10 +61,14 @@ public Map<String, List<Map<String, String>>> testPost(@RequestBody Map<String, 
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-    @GetMapping("/post")
-    public ResponseEntity<Post> getPost(){
-        Post post = new Post("Hola","2021-10-10");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    @PostMapping("/getPost")
+    public ResponseEntity<Post> getPost(@RequestBody Map<String, String> payload){
+        String socialMedia = payload.get("socialMedia");
+        String user = payload.get("user");
+        String password = payload.get("password");
+        String post = payload.get("post");
+        controller.findSocialMedia(socialMedia);
+        return new ResponseEntity<>(controller.getPost(post,new User("","",password,user)), HttpStatus.OK);
     }
 
 }
