@@ -1,4 +1,5 @@
 package co.edu.uptc.SocialMediaManager.model;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -9,13 +10,16 @@ public class User {
     private String username;
     private ArrayList<Post> posts;
     private ArrayList<String> friends;
+    private int stars; 
+
     public User(String name, String email, String password, String username) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.username = username;
         this.posts = new ArrayList<>();
-        this.friends=new ArrayList<>();
+        this.friends = new ArrayList<>();
+        this.stars = 0; 
     }
 
     public ArrayList<String> getFriends() {
@@ -32,7 +36,24 @@ public class User {
 
     public void addPost(Post post) {
         this.posts.add(post);
+          
     }
+
+    public void removePost(Post post) {
+        this.posts.remove(post);
+        
+    }
+
+    public void editPost(Post post, String newContent) {
+        for (Post p : posts) {
+            if (p.equals(post)) {
+                p.setContent(newContent);
+                break;
+            }
+        }
+        
+    }
+
     public void addFriend(String userName) {
         this.friends.add(userName);
     }
@@ -69,6 +90,12 @@ public class User {
         this.username = username;
     }
 
+    public int getStars() {
+        return stars;
+    }
+
+    
+
     @Override
     public String toString() {
         return "User{" +
@@ -76,8 +103,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", posts=" + posts+
+                ", posts=" + posts +
                 ", friends=" + friends +
+                ", stars=" + stars + 
                 '}';
     }
 
