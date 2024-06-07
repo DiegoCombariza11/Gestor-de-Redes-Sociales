@@ -47,6 +47,9 @@ public class Controller {
 
 
 
+
+
+
     private User findUserRecursive(Node<Object> node, String username, String password) {
         if (node == null) {
             return null;
@@ -139,6 +142,8 @@ public class Controller {
     }
 
 
+
+    /*
     //Para un futuro con más tiempo
     public void addFriend(User user, User friend) {
         User u = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
@@ -148,6 +153,7 @@ public class Controller {
         }
     }
 
+     */
 
     public List<Interaction> getInteractionsOfPost(String username, String password, String socialMediaName, String content) {
         // Paso 1: Buscar la red social
@@ -171,7 +177,7 @@ public class Controller {
         return post.getInteractions();
     }
 
-    public ArrayList<Post> getPostsByUsername(String username, String password) {
+    public List<Post> getPostsByUsername(String username, String password) {
         User user = findUserRecursive(socialMedia.getRoot(), username, password);
         if (user == null) {
             System.out.println("Usuario no encontrado en mostrar post.");
@@ -181,7 +187,7 @@ public class Controller {
         return user.getPosts();
     }
 
-    public ArrayList<String> getFriends(String socialMediaName, String username, String password) {
+    public List<String> getFriends(String socialMediaName, String username, String password) {
         findSocialMedia(socialMediaName);
         User user = findUserRecursive(socialMedia.getRoot(), username, password);
         if (user == null) {

@@ -18,6 +18,31 @@ console.log('Cookie de red social: ' + socialMediaCookieValue);
 document.getElementById('username').textContent = userCookieValue;
 
 
+fetch('/friends', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        'username': userCookieValue,
+        'password': password,
+        'socialMediaName': socialMediaCookieValue
+    })
+})
+    .then(response => response.json())
+    .then(friends => {
+        console.log('Friends:', friends);
+        const friendsList = document.getElementById('friends-list');
+        friendsList.innerHTML = '';
+        friends.forEach(friend => {
+            const friendItem = document.createElement('li');
+            friendItem.textContent = friend;
+            friendsList.appendChild(friendItem);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+
+
 fetch('/posts', {
     method: 'POST',
     headers: {
@@ -40,66 +65,72 @@ fetch('/posts', {
             <td id="content">${post.content}</td>
             <td>${post.date}</td>
             <td>
-                <a onclick="edit()" class="btn btn-primary">View</a>
-                <a  class="btn btn-secondary">Edit</a>
-                <a href="#" class="btn btn-danger" onclick="deletePost(${post.id})">Delete</a>
-            </td>
+                   <button class="btn btn-primary view-button">View</button>
+           </td>
         `;
         postsTableBody.appendChild(postRow);
     });
-})
-.catch(error => console.error('Error:', error));
 
 
 
+document.addEventListener('click', function (event) {
+    if (event.target.matches('.view-button')) {
+        const postContent = event.target.parentElement.parentElement.querySelector('#content').textContent;
+        const postData = { "content": postContent };
 
-
-fetch('/friends', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        'username': userCookieValue,
-        'password': password,
-        'socialMediaName': socialMediaCookieValue
-    })
-})
-.then(response => response.json())
-.then(friends => {
-    console.log('Friends:', friends);
-    const friendsList = document.getElementById('friends-list');
-    friendsList.innerHTML = '';
-    friends.forEach(friend => {
-        const friendItem = document.createElement('li');
-        friendItem.textContent = friend;
-        friendsList.appendChild(friendItem);
-    });
-})
-.catch(error => console.error('Error:', error));
-
-async function edit(){
-    const post = document.getElementById('content').value;
-    fetch('/selectPost', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'post': post
+        fetch('/selectPost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
         })
-    }).then(response => {
-        if (response.status === 302 || response.status === 200) {
-            window.location.href = '/pages/Interactions.html';
-        } else {
-            return response.json();
-        }
-    }).then(data => {
-        if (data) {
-            console.log("Post creation response:", data);
-        }
-    }).catch(error => {
-        console.error("Error creating post:", error);
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                console.error('Error en la respuesta del servidor', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
+});
+
+
+    /*
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewButtons = document.querySelectorAll('.view-button');
+u
+        viewButtons.forEach(btton => {
+            button.addEventListener('click', function () {
+                const postContent = button.parentElement.parentElement.querySelector('#content').textContent;
+                const postData = { "content": postContent };
+                console.log(postData)
+
+                fetch('/selectPost', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                    .then(response => {
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        } else {
+                            errorMessage.textContent = 'Uh oh, ocurrió un error, llamen al ingeniero';
+                            errorMessage.style.display = 'block';
+                            console.log('Error en la respuesta del servidor llamen al ingeniero ', response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    });
+            });
+        });
     });
-}
+    */
+});

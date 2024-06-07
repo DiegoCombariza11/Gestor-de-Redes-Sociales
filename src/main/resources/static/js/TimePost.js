@@ -1,3 +1,10 @@
+export class TimePost {
+    contructor(chart) {
+        this.chart = chart;
+    }
+
+}
+
 function getSimpleCookie(name) {
     let cookieValue = document.cookie
         .split('; ')

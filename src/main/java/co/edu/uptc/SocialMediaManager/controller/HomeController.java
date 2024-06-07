@@ -58,31 +58,26 @@ public class HomeController {
         return new ResponseEntity<>(friends, HttpStatus.OK);
     }
 
-    @PostMapping("/selectPost")
-    public ResponseEntity<Void> loginPost(@RequestBody Map<String, String> payload) {
 
-        String post = payload.get("post");
+@PostMapping("/selectPost")
+public ResponseEntity<Void> selectPost(@RequestBody Map<String, String> payload) {
+    String postContent = payload.get("content");
 
-        ResponseCookie postCookie = ResponseCookie.from("post", post)
-                .maxAge(24 * 3600)
-                .httpOnly(false)
-                .path("/")
-                .build();
+    ResponseCookie postCookie = ResponseCookie.from("post", postContent)
+            .maxAge(24 * 3600)
+            .httpOnly(false)
+            .path("/")
+            .build();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.SET_COOKIE, postCookie.toString());
-        headers.setLocation(URI.create("/pages/Post.html"));
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
-    }
-//    @PostMapping("/post")
-//    public ResponseEntity<Void> createPost(@RequestBody Post post){
-//        if (post == null) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(URI.create("/pages/Home.html"));
-//        return new ResponseEntity<>(headers, HttpStatus.FOUND);
-//    }
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.SET_COOKIE, postCookie.toString());
+    headers.setLocation(URI.create("/pages/Statistics.html"));
+    return new ResponseEntity<>(headers, HttpStatus.FOUND);
+}
+
+
+
 
     @PostMapping("/getPost")
     public ResponseEntity<Post> getPost(@RequestBody Map<String, String> payload) {
