@@ -43,12 +43,13 @@ public class SocialMedia {
     public void editPost(User user, Post post, String newContent) {
         Node<User> userNode = findUserNode(this.users.getRoot(), user);
         if (userNode != null) {
-            Post targetPost= userNode.getData().getPosts().find(post);
+            Post targetPost = userNode.getData().getPosts().findValue(userNode.getData().getPosts().getRoot(), post);
             if (targetPost != null) {
                 targetPost.setContent(newContent);
             }
         }
     }
+
     private Node<User> findUserNode(Node<User> currentNode, User user) {
         if (currentNode == null) return null;
         if (currentNode.getData().equals(user)) return currentNode;

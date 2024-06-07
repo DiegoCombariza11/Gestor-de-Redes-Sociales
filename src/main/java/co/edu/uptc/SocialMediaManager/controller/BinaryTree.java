@@ -101,4 +101,8 @@ public class BinaryTree<T> {
     public T findPost(T post) {
         return find(post);
     }
+
+    public T findValue(Node<T> root, T value) {
+        return findRecursive(root, value);
+    }
 }
