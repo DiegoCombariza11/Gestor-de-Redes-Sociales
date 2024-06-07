@@ -30,7 +30,7 @@ public class Controller {
         writeSocialMedia();
     }
 
-    /*
+
 //Para un futuro con más tiempo
  public void createPost(String content, String date, User user) {
     if (socialMedia != null) {
@@ -45,7 +45,7 @@ public class Controller {
     }
 }
 
-     */
+
 
     private User findUserRecursive(Node<Object> node, String username, String password) {
         if (node == null) {
@@ -139,7 +139,6 @@ public class Controller {
     }
 
 
-    /*
     //Para un futuro con más tiempo
     public void addFriend(User user, User friend) {
         User u = findUserRecursive(socialMedia.getRoot(), user.getUsername(), user.getPassword());
@@ -149,7 +148,6 @@ public class Controller {
         }
     }
 
-     */
 
     public List<Interaction> getInteractionsOfPost(String username, String password, String socialMediaName, String content) {
         // Paso 1: Buscar la red social
