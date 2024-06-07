@@ -1,10 +1,12 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Post;
+import co.edu.uptc.SocialMediaManager.model.User;
 import co.edu.uptc.SocialMediaManager.service.Controller;
 import jakarta.servlet.http.Cookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,7 @@ public class HomeController {
         List<Post> posts = controller.getPostsByUsername(username, password);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+
     @PostMapping("/friends")
     public ResponseEntity<List<String>> getFriends(@RequestBody Map<String, String> payload) {
         String username = payload.get("username");
@@ -55,7 +58,41 @@ public class HomeController {
         return new ResponseEntity<>(friends, HttpStatus.OK);
     }
 
+    @PostMapping("/selectPost")
+    public ResponseEntity<Void> loginPost(@RequestBody Map<String, String> payload) {
 
+        String post = payload.get("post");
+
+        ResponseCookie postCookie = ResponseCookie.from("post", post)
+                .maxAge(24 * 3600)
+                .httpOnly(false)
+                .path("/")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, postCookie.toString());
+        headers.setLocation(URI.create("/pages/Post.html"));
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    }
+//    @PostMapping("/post")
+//    public ResponseEntity<Void> createPost(@RequestBody Post post){
+//        if (post == null) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(URI.create("/pages/Home.html"));
+//        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+//    }
+
+    @PostMapping("/getPost")
+    public ResponseEntity<Post> getPost(@RequestBody Map<String, String> payload) {
+        String socialMedia = payload.get("socialMedia");
+        String user = payload.get("user");
+        String password = payload.get("password");
+        String post = payload.get("post");
+        controller.findSocialMedia(socialMedia);
+        return new ResponseEntity<>(controller.getPost(post, new User("", "", password, user)), HttpStatus.OK);
+    }
 
 
 

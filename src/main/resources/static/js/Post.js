@@ -8,7 +8,7 @@ function getSimpleCookie(name) {
         .split('=')[1];
     return cookieValue || null;
 }
-
+let postCookieValue=getSimpleCookie('post');
 let userCookieValue = getSimpleCookie('user');
 let socialMediaCookieValue = getSimpleCookie('socialMedia');
 let passwordCookieValue = getSimpleCookie('password');
@@ -73,7 +73,7 @@ function load() {
             "user": userCookieValue,
             "password": passwordCookieValue,
             "socialMedia": socialMediaCookieValue,
-            "post":"Hola"
+            "post":postCookieValue
         })
 
     })
@@ -84,7 +84,6 @@ function load() {
         })
         .catch(error => {
             console.error("Error loading post:", error);
-            // Handle error
         });
 }
 document.getElementById('back').addEventListener('click', function (event) {

@@ -41,7 +41,7 @@ fetch('/posts', {
             <td>${post.date}</td>
             <td>
                 <a href="viewPost.html?id=${post.id}" class="btn btn-primary">View</a>
-                <a href="editPost.html?id=${post.id}" class="btn btn-secondary">Edit</a>
+                <a onclick="edit()" class="btn btn-secondary">Edit</a>
                 <a href="#" class="btn btn-danger" onclick="deletePost(${post.id})">Delete</a>
             </td>
         `;
@@ -78,3 +78,28 @@ fetch('/friends', {
 })
 .catch(error => console.error('Error:', error));
 
+async function edit(){
+    const post = document.getElementById('post-tbody').value;
+    fetch('/selectPost', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'post': post
+        })
+    }).then(response => {
+        if (response.status === 302 || response.status === 200) {
+            window.location.href = '/pages/Post.html';
+        } else {
+            return response.json();
+        }
+    }).then(data => {
+        if (data) {
+            console.log("Post creation response:", data);
+        }
+    }).catch(error => {
+        console.error("Error creating post:", error);
+    });
+}

@@ -28,10 +28,10 @@ public class NodeTypeAdapter implements JsonDeserializer<Node<Object>> {
             } else if (dataObject.has("date") && dataObject.has("user")) {
                 // Deserializar Interaction
                 data = context.deserialize(dataElement, Interaction.class);
-            } else if (dataObject.has("likes")) {
+            } else if (dataObject.has("likes")||dataObject.has("id")) {
                 // Deserializar Likes
                 data = context.deserialize(dataElement, Post.class);
-            } else if (dataObject.has("friends")) {
+            }else if (dataObject.has("friends")) {
                 // Deserializar User con friends
                 Type friendsListType = new TypeToken<List<String>>() {}.getType();
                 List<String> friends = context.deserialize(dataObject.get("friends"), friendsListType);
