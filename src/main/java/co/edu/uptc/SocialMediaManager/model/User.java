@@ -36,12 +36,12 @@ public class User {
 
     public void addPost(Post post) {
         this.posts.add(post);
-          
+        updateStars(); 
     }
 
     public void removePost(Post post) {
         this.posts.remove(post);
-        
+        updateStars(); 
     }
 
     public void editPost(Post post, String newContent) {
@@ -51,9 +51,34 @@ public class User {
                 break;
             }
         }
-        
+        updateStars(); 
     }
 
+    public void updateStars() {
+        int totalLikes = countLikes();
+
+        
+        if (totalLikes < 50) {
+            this.stars = 1;
+        } else if (totalLikes < 100) {
+            this.stars = 2;
+        } else if (totalLikes < 150) {
+            this.stars = 3;
+        } else if (totalLikes < 200) {
+            this.stars = 4;
+        } else {
+            this.stars = 5;
+        }
+    }
+
+    private int countLikes() {
+        int totalLikes = 0;
+        for (Post post : posts) {
+            totalLikes += post.getLikes();
+        }
+        return totalLikes;
+    }
+    
     public void addFriend(String userName) {
         this.friends.add(userName);
     }
