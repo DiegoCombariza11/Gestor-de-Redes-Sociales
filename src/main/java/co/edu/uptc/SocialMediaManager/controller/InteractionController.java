@@ -32,13 +32,13 @@ public class InteractionController {
         String user = payload.get("user");
         String password = payload.get("password");
         String content = payload.get("content");
-        return controller.averageLikes(user,password,socialMedia,content);
+        return controller.averageLikes(socialMedia,user,password,content);
     }
     @PostMapping("/timePost")
     public List<Post> getTimePost(@RequestBody Map<String, String> payload) {
         String socialMedia = payload.get("socialMedia");
         String user = payload.get("user");
         String password = payload.get("password");
-        return controller.timePost("juan","123","Facebook");
+        return controller.timePost(socialMedia,user,password);
     }
 }

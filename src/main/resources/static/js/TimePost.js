@@ -1,27 +1,9 @@
 export class TimePost {
-    contructor(chart) {
+    constructor(chart) {
         this.chart = chart;
     }
 
-}
-
-function getSimpleCookie(name) {
-    let cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith(name + '='))
-        .split('=')[1];
-    return cookieValue || null;
-}
-
-let postCookieValue = getSimpleCookie("post");
-let userCookieValue = getSimpleCookie('user');
-let socialMediaCookieValue = getSimpleCookie('socialMedia');
-let passwordCookieValue = getSimpleCookie('password');
-
-document.addEventListener('DOMContentLoaded', async function () {
-    const ctx = document.getElementById('interactionChart').getContext('2d');
-
-    async function getInteractions() {
+    async getInteractions() {
         const request = await fetch('/timePost', {
             method: 'POST',
             headers: {
@@ -29,9 +11,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "user": userCookieValue,
-                "password": passwordCookieValue,
-                "socialMedia": socialMediaCookieValue
+                "user": this.getSimpleCookie('user'),
+                "password": this.getSimpleCookie('password'),
+                "socialMedia": this.getSimpleCookie('socialMedia')
             })
         });
         const interactions = await request.json();
@@ -49,14 +31,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         interactionData.sort((a, b) => a.date - b.date);
-
         return interactionData;
     }
 
-
-    async function renderChart() {
-        const interactionData = await getInteractions();
-
+    async renderChart(ctx) {
+        const interactionData = await this.getInteractions();
         const labels = interactionData.map(entry => entry.date.toISOString().split('T')[0]);
         const dataPoints = interactionData.map(entry => entry.interactions);
 
@@ -106,5 +85,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    renderChart();
-});
+    getSimpleCookie(name) {
+        let cookie = document.cookie
+            .split('; ')
+            .find(row => row.startsWith(name + '='));
+        return cookie ? cookie.split('=')[1] : null;
+    }
+}
