@@ -1,6 +1,7 @@
 package co.edu.uptc.SocialMediaManager.controller;
 
 import co.edu.uptc.SocialMediaManager.model.Interaction;
+import co.edu.uptc.SocialMediaManager.model.Post;
 import co.edu.uptc.SocialMediaManager.model.User;
 import co.edu.uptc.SocialMediaManager.service.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,22 @@ public class InteractionController {
         String socialMedia = payload.get("socialMedia");
         String user = payload.get("user");
         String password = payload.get("password");
-        return controller.getInteractionsOfPost(user,password,socialMedia,"Hola");
+        String content = payload.get("content");
+        return controller.getInteractionsOfPost(user,password,socialMedia,content);
+    }
+    @PostMapping("/average")
+    public String getAverage(@RequestBody Map<String, String> payload) {
+        String socialMedia = payload.get("socialMedia");
+        String user = payload.get("user");
+        String password = payload.get("password");
+        String content = payload.get("content");
+        return controller.averageLikes(user,password,socialMedia,content);
+    }
+    @PostMapping("/timePost")
+    public List<Post> getTimePost(@RequestBody Map<String, String> payload) {
+        String socialMedia = payload.get("socialMedia");
+        String user = payload.get("user");
+        String password = payload.get("password");
+        return controller.timePost("juan","123","Facebook");
     }
 }

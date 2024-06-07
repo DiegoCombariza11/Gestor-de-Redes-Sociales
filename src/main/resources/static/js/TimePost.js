@@ -5,21 +5,23 @@ function getSimpleCookie(name) {
         .split('=')[1];
     return cookieValue || null;
 }
-let postCookieValue=getSimpleCookie("post");
+
+let postCookieValue = getSimpleCookie("post");
 let userCookieValue = getSimpleCookie('user');
 let socialMediaCookieValue = getSimpleCookie('socialMedia');
 let passwordCookieValue = getSimpleCookie('password');
+
 document.addEventListener('DOMContentLoaded', async function () {
     const ctx = document.getElementById('interactionChart').getContext('2d');
 
     async function getInteractions() {
-        const request = await fetch('/interactions', {
+        const request = await fetch('/timePost', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body : JSON.stringify({
+            body: JSON.stringify({
                 "user": userCookieValue,
                 "password": passwordCookieValue,
                 "socialMedia": socialMediaCookieValue
@@ -43,23 +45,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         return interactionData;
     }
-    async function average(){
-        const request = await fetch('/interactions', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({
-                "user": userCookieValue,
-                "password": passwordCookieValue,
-                "socialMedia": socialMediaCookieValue,
-                "content":postCookieValue
-            })
-        });
-        const interactions = await request.json();
-        document.getElementById("average").value=interactions;
-    }
+
+
     async function renderChart() {
         const interactionData = await getInteractions();
 
@@ -111,6 +98,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
     }
+
     renderChart();
-    average();
 });

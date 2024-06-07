@@ -183,13 +183,36 @@ public class Controller {
         return user.getPosts();
     }
 
-   public ArrayList<String> getFriends(String socialMediaName, String username, String password) {
-    findSocialMedia(socialMediaName);
-    User user = findUserRecursive(socialMedia.getRoot(), username, password);
-    if (user == null) {
-        System.out.println("Usuario no encontrado en mostrar amigos.");
-        return new ArrayList<>();
+    public ArrayList<String> getFriends(String socialMediaName, String username, String password) {
+        findSocialMedia(socialMediaName);
+        User user = findUserRecursive(socialMedia.getRoot(), username, password);
+        if (user == null) {
+            System.out.println("Usuario no encontrado en mostrar amigos.");
+            return new ArrayList<>();
+        }
+        return user.getFriends();
     }
-    return user.getFriends();
-}
+    public String averageLikes(String socialMediaName, String username, String password, String post){
+        findSocialMedia(socialMediaName);
+        User user = findUserRecursive(socialMedia.getRoot(), username, password);
+        if (user == null) {
+            System.out.println("Usuario no encontrado en mostrar amigos.");
+            return "Usuario no encontrado";
+        }
+        Post p = findPost(user, post);
+        if (p == null) {
+            System.out.println("Publicación no encontrada.");
+            return "Publicación no encontrada";
+        }
+        return "El promedio de likes de la publicación es: "+p.getLikes()/user.getFriends().size();
+    }
+    public List<Post> timePost(String socialMediaName, String username, String password){
+        findSocialMedia(socialMediaName);
+        User user = findUserRecursive(socialMedia.getRoot(), username, password);
+        if (user == null) {
+            System.out.println("Usuario no encontrado en mostrar amigos.");
+            return new ArrayList<>();
+        }
+        return user.getPosts();
+    }
 }

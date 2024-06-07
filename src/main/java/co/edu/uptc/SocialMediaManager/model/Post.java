@@ -7,13 +7,11 @@ import java.util.ArrayList;
 public class Post  {
     private String content;
     private String date;
-    private String id;
     private ArrayList<Interaction> interactions;
     private int likes;
-    public Post(String content, String date, String id){
+    public Post(String content, String date){
         this.content = content;
         this.date = date;
-        this.id = id;
         this.interactions=new ArrayList<>();
         this.likes=0;
     }
@@ -32,13 +30,6 @@ public class Post  {
 
     public void setDate(String date) {
         this.date = date;
-    }
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public ArrayList<Interaction> getInteractions() {

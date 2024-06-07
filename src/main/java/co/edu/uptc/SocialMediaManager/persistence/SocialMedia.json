@@ -13,7 +13,6 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "id": "1",
                 "interactions": [
                   {
                     "date": "2021-01-10",
@@ -25,7 +24,6 @@
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "id" : "2",
                 "interactions": [],
                 "likes": 0
               }
@@ -46,7 +44,6 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "id": "1",
                 "interactions": [
                   {
                     "date": "2021-01-10",
@@ -70,7 +67,6 @@
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "id": "2",
                 "interactions": [],
                 "likes": 0
               }
@@ -98,7 +94,6 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "id": "1",
                 "interactions": [
                   {
                     "date": "2021-01-10",
@@ -110,7 +105,6 @@
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "id": "2",
                 "interactions": [],
                 "likes": 0
               }
@@ -131,14 +125,12 @@
               {
                 "content": "Hola",
                 "date": "2021-01-01",
-                "id": "1",
                 "interactions": [],
                 "likes": 0
               },
               {
                 "content": "Adios",
                 "date": "2021-12-01",
-                "id": "2",
                 "interactions": [],
                 "likes": 0
               }
