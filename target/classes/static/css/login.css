@@ -1,0 +1,31 @@
+.social-logo-img {
+    transition: 0.5s;
+    opacity: 1;
+    width: 50px;
+}
+.social-selector{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.social-logo-img:hover {
+    opacity: 0.5;
+}
+#error-message{
+    color: red;
+    font-size: 12px;
+}
+
+.navbar{
+    background-color: #81bfff;
+    height: fit-content;
+
+}
+.container-nav{
+    align-content: center;
+}
+.navbar-brand{
+    color: white;
+
+}

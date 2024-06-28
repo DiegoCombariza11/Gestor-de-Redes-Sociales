@@ -1,0 +1,9 @@
+Como usuario, quiero poder conectar mi cuenta de red social a través de un proceso de inicio de sesión seguro utilizando mi nombre de usuario y contraseña.
+Como usuario, quiero que mis datos estén protegidos y seguros mientras utilizo la aplicación.
+Como usuario, quiero poder gestionar mis datos de cuenta, incluyendo la capacidad de modificar y eliminar mi cuenta si es necesario.
+Como usuario, quiero poder ver una representación visual de mi red social en forma de árbol, donde yo sea el nodo central y mis conexiones sean nodos secundarios.
+Como usuario, quiero poder filtrar mi red social por tipo de conexión (amigos, familia, colegas, etc.) para analizar y gestionar mis relaciones de manera más efectiva.
+Como usuario, quiero ver estadísticas sobre mis interacciones en las redes sociales (me gusta, comentarios, compartidos, etc.) representadas en el árbol, para comprender mejor mi actividad en línea.
+Como usuario, quiero recibir notificaciones sobre nuevas interacciones o cambios en mi red social, para mantenerme actualizado sobre actualizaciones relevantes en mis conexiones en línea.
+Como usuario, quiero poder exportar datos de mi árbol de red social en formatos compatibles con otras herramientas de gestión de datos para su uso posterior.
+Como usuario, quiero poder realizar búsquedas dentro de mi red social representada en el árbol, para encontrar rápidamente conexiones específicas o tipos de interacciones.
